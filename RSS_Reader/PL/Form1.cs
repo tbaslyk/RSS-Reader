@@ -34,11 +34,11 @@ namespace PL
         {
 
             ListViewItem item = new ListViewItem();
+            var feedM = FeedManager.getFeed(txtURL.Text);
 
-            item.Text = FeedManager.getFeed(txtURL.Text).NumberOfEpisodes.ToString();
-            item.SubItems.Add(FeedManager.getFeed(txtURL.Text).Name);
+            item.Text = feedM.NumberOfEpisodes.ToString();
+            item.SubItems.Add(feedM.Name);
             
-
 
             lvPodcasts.Items.Add(item);
 

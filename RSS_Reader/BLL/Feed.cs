@@ -9,10 +9,12 @@ namespace BLL
     public class Feed
     {
         public string Name { get; set; }
+        public int NumberOfEpisodes { get; set; }
 
-        public Feed(string PodcastName)
+        public Feed(string PodcastName, int numberOfEpisodes)
         {
             Name = PodcastName;
+            NumberOfEpisodes = numberOfEpisodes;
             
         }
 

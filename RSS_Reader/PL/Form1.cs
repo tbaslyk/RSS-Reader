@@ -18,14 +18,29 @@ namespace PL
         public Form1()
         {
             InitializeComponent();
+            IntializeColumns();
+        }
+
+        public void IntializeColumns()
+        {
+            lvPodcasts.Columns.Add("Antal");
+            lvPodcasts.Columns.Add("Namn");
+            lvPodcasts.Columns.Add("Frekvens");
+            lvPodcasts.Columns.Add("Kategori");
+            lvPodcasts.View = View.Details;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            lvPodcasts.Items.Add(FeedManager.getTitle(txtURL.Text).Name);
-            
+
+            ListViewItem item = new ListViewItem();
+
+            item.Text = FeedManager.getFeed(txtURL.Text).NumberOfEpisodes.ToString();
+            item.SubItems.Add(FeedManager.getFeed(txtURL.Text).Name);
             
 
+
+            lvPodcasts.Items.Add(item);
 
         }
         

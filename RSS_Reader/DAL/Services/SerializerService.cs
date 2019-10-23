@@ -9,25 +9,25 @@ namespace DAL
     public class SerializerService
     {
 
-        public void Serialize(string filename, IEnumerable<Feed> feeds)
-        {
-            try
-            {
+        //public void Serialize(string filename, IEnumerable<Feed> feeds)
+        //{
+        //    try
+        //    {
 
 
 
 
-            } catch()
-            {
+        //    } catch()
+        //    {
 
-            }
+        //    }
 
-        }
+        //}
 
-        public void Deserialize()
-        {
+        //public void Deserialize()
+        //{
 
-        }
+        //}
 
 
 

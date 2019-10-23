@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Feed.cs" />
+    <Compile Include="FeedManager.cs" />
     <Compile Include="Podcast.cs" />
     <Compile Include="PodcastManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

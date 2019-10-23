@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class Feed
+    public class Feed
     {
-        public string PodcastName { get; set; }
-        public string Category { get; set; }
-        public string URL { get; set; }
+        public string Name { get; set; }
 
-        public Feed(string PodcastName, string Category, string URL)
+        public Feed(string PodcastName)
         {
-            this.PodcastName = PodcastName;
-            this.Category = Category;
-            this.URL = URL;
+            Name = PodcastName;
             
         }
 

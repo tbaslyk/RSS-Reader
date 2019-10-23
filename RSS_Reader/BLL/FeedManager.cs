@@ -19,13 +19,13 @@ namespace BLL
         }
 
 
-        private static string getTitle(string url)
+        private static string GetTitle(string url)
         {
             SyndicationFeed feed = reader(url);
             return feed.Title.Text;
         }
 
-        private static int getNumberEpisodes(string url)
+        private static int GetNumberOfEpisodes(string url)
         {
             SyndicationFeed feed = reader(url);
             int counter = 0;
@@ -36,10 +36,10 @@ namespace BLL
             return counter;
         }
 
-        public static Feed getFeed(string url)
+        public static Feed CreateFeed(string url)
         {
-            int number = getNumberEpisodes(url);
-            string name = getTitle(url);
+            int number = GetNumberOfEpisodes(url);
+            string name = GetTitle(url);
 
             return new Feed(name, number);
         }

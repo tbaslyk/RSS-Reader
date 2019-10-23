@@ -13,9 +13,9 @@ using BLL;
 
 namespace PL
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             IntializeColumns();
@@ -30,14 +30,14 @@ namespace PL
             lvPodcasts.View = View.Details;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAddPodcast_Click(object sender, EventArgs e)
         {
 
             ListViewItem item = new ListViewItem();
-            var feedM = FeedManager.getFeed(txtURL.Text);
+            var feed = FeedManager.CreateFeed(txtURL.Text);
 
-            item.Text = feedM.NumberOfEpisodes.ToString();
-            item.SubItems.Add(feedM.Name);
+            item.Text = feed.NumberOfEpisodes.ToString();
+            item.SubItems.Add(feed.Name);
             
 
             lvPodcasts.Items.Add(item);

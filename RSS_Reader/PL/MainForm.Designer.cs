@@ -1,6 +1,6 @@
 ﻿namespace PL
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +63,7 @@
             this.btnAddPodcast.TabIndex = 0;
             this.btnAddPodcast.Text = "Lägg till";
             this.btnAddPodcast.UseVisualStyleBackColor = true;
-            this.btnAddPodcast.Click += new System.EventHandler(this.button1_Click);
+            this.btnAddPodcast.Click += new System.EventHandler(this.btnAddPodcast_Click);
             // 
             // lvPodcasts
             // 

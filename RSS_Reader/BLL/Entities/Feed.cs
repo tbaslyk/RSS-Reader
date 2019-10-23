@@ -11,9 +11,9 @@ namespace BLL
         public string Name { get; set; }
         public int NumberOfEpisodes { get; set; }
 
-        public Feed(string PodcastName, int numberOfEpisodes)
+        public Feed(string podcastName, int numberOfEpisodes)
         {
-            Name = PodcastName;
+            Name = podcastName;
             NumberOfEpisodes = numberOfEpisodes;
             
         }

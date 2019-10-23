@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feed.cs" />
+    <Compile Include="Entities\Feed.cs" />
     <Compile Include="FeedManager.cs" />
-    <Compile Include="Podcast.cs" />
+    <Compile Include="Entities\Podcast.cs" />
     <Compile Include="PodcastManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

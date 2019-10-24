@@ -13,13 +13,18 @@ namespace BLL
     {
         public static List<Feed> LoadFeeds()
         {
-            List<Feed> feeds = Serializer.DeSerialize<List<Feed>>();
+            List<Feed> feeds = new List<Feed>();
+            feeds.Add(Serializer.Deserialize<Feed>(Environment.CurrentDirectory + "\\feeds.xml"));
             return feeds;
         }
 
         public static void SaveFeeds(List<Feed> feeds)
         {
-            Serializer.Serialize<List<Feed>>(feeds);
+            foreach (Feed feed in feeds)
+            {
+                Serializer.Serialize<Feed>(feed, Environment.CurrentDirectory + "\\feeds.xml");
+            }
+
         }
 
         private static string GetTitle(string url)

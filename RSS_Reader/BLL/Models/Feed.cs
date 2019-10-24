@@ -26,5 +26,14 @@ namespace BLL
 
         }
 
+        public List<Episode> GetEpisodesByNew()
+        {
+            List<Episode> sortedEpisodes = Episodes
+                .OrderByDescending((e) => e.EpisodeNumber)
+                .ToList();
+
+            return sortedEpisodes;
+        } 
+
     }
 }

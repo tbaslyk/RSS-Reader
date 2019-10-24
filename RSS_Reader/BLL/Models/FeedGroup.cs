@@ -17,12 +17,27 @@ namespace BLL.Models
 
         public void Add(Feed feed)
         {
-            if(!Feeds.Any((f) => f.Name == feed.Name))
+            if(!Feeds
+                .Any((f) => f.Name == feed.Name))
             {
                 Feeds.Add(feed);
             }
             
-        } 
+        }
+
+        public void AddRange(List<Feed> feeds)
+        {
+            Feeds = feeds;
+        }
+        
+        public List<Feed> GetSortedFeeds()
+        {
+            List<Feed> sortedFeeds = Feeds
+                .OrderBy((f) => f.Name)
+                .ToList();
+
+            return sortedFeeds;
+        }
 
     }
 }

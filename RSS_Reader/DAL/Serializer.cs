@@ -12,10 +12,8 @@ namespace DAL
     public class Serializer
     {
 
-        public static void Serialize<T>(T data)
+        public static void Serialize<T>(T data, string path)
         {
-            string path = Environment.CurrentDirectory + "\\feeds.xml";
-            
             if (!File.Exists(path))
             {
                 using (FileStream file = File.Create(path))
@@ -34,10 +32,8 @@ namespace DAL
             }
         }
 
-        public static T DeSerialize<T>()
+        public static T Deserialize<T>(string path)
         {
-            string path = Environment.CurrentDirectory + "\\feeds.xml";
-
             if (File.Exists(path))
             {
                 using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))

@@ -24,18 +24,18 @@ namespace PL
             IntializeColumns();
 
             _FeedGroup = new FeedGroup();
-            loadListWithFeeds();
+            LoadWithFeeds();
         }
 
-        private void loadListWithFeeds()
+        private void LoadWithFeeds()
         {
             var listWithFeeds = FeedManager.LoadFeeds();
 
-            if (listWithFeeds != null)
+            if (!listWithFeeds.Any())
             {
-                _FeedGroup.Feeds.AddRange(listWithFeeds);
+                _FeedGroup.AddRange(listWithFeeds);
 
-                foreach (Feed feed in _FeedGroup.Feeds)
+                foreach (Feed feed in _FeedGroup.GetSortedFeeds())
                 {
                     ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
                     lvPodcasts.Items.Add(item);
@@ -73,11 +73,11 @@ namespace PL
         {
             lvEpisodes.Items.Clear();
             
-            foreach(Feed feed in _FeedGroup.Feeds)
+            foreach(Feed feed in _FeedGroup.GetSortedFeeds())
             {
                 if(feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
                 {
-                    foreach(Episode episode in feed.Episodes)
+                    foreach(Episode episode in feed.GetEpisodesByNew())
                     {
                         ListViewItem item = new ListViewItem(new[] { episode.EpisodeNumber.ToString(), episode.Title });
                         lvEpisodes.Items.Add(item);
@@ -88,7 +88,7 @@ namespace PL
         }
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
-            foreach (Feed feed in _FeedGroup.Feeds)
+            foreach (Feed feed in _FeedGroup.GetSortedFeeds())
             {
                 if (feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
                 {

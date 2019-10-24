@@ -10,38 +10,34 @@ namespace BLL
 {
     public static class FeedManager
     {
-        public static SyndicationFeed reader(string url)
-        {
-            XmlReader xr = XmlReader.Create(url);
-            SyndicationFeed feed = SyndicationFeed.Load(xr);
-            xr.Close();
-            return feed;
-        }
-
-
         private static string GetTitle(string url)
         {
-            SyndicationFeed feed = reader(url);
+            SyndicationFeed feed = RSSReader.Reader(url);
             return feed.Title.Text;
         }
 
-        private static int GetNumberOfEpisodes(string url)
+        private static List<Episode> GetEpisodes(string url)
         {
-            SyndicationFeed feed = reader(url);
-            int counter = 0;
-            foreach (var item in feed.Items.ToList())
+            SyndicationFeed feed = RSSReader.Reader(url);
+            List<Episode> episodes = new List<Episode>();
+            int episodeCounter = 1;
+
+            foreach(var item in feed.Items.ToList())
             {
-                counter++;
+                episodes.Add(new Episode(episodeCounter, item.Title.Text, item.Summary.Text));
+                episodeCounter++;
             }
-            return counter;
+
+            return episodes;
         }
 
         public static Feed CreateFeed(string url)
         {
-            int number = GetNumberOfEpisodes(url);
+            int number = GetEpisodes(url).Count();
             string name = GetTitle(url);
+            List<Episode> episodes = GetEpisodes(url);
 
-            return new Feed(name, number);
+            return new Feed(name, number, episodes);
         }
     }
 }

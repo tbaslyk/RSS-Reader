@@ -57,7 +57,7 @@
             // btnAddPodcast
             // 
             this.btnAddPodcast.Location = new System.Drawing.Point(9, 22);
-            this.btnAddPodcast.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAddPodcast.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddPodcast.Name = "btnAddPodcast";
             this.btnAddPodcast.Size = new System.Drawing.Size(139, 25);
             this.btnAddPodcast.TabIndex = 0;
@@ -69,16 +69,17 @@
             // 
             this.lvPodcasts.HideSelection = false;
             this.lvPodcasts.Location = new System.Drawing.Point(9, 121);
-            this.lvPodcasts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvPodcasts.Margin = new System.Windows.Forms.Padding(2);
             this.lvPodcasts.Name = "lvPodcasts";
             this.lvPodcasts.Size = new System.Drawing.Size(343, 164);
             this.lvPodcasts.TabIndex = 1;
             this.lvPodcasts.UseCompatibleStateImageBehavior = false;
+            this.lvPodcasts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvPodcasts_MouseDoubleClick);
             // 
             // btnSavePodcast
             // 
             this.btnSavePodcast.Location = new System.Drawing.Point(174, 22);
-            this.btnSavePodcast.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSavePodcast.Margin = new System.Windows.Forms.Padding(2);
             this.btnSavePodcast.Name = "btnSavePodcast";
             this.btnSavePodcast.Size = new System.Drawing.Size(82, 25);
             this.btnSavePodcast.TabIndex = 2;
@@ -88,7 +89,7 @@
             // btnRemovePodcast
             // 
             this.btnRemovePodcast.Location = new System.Drawing.Point(268, 22);
-            this.btnRemovePodcast.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRemovePodcast.Margin = new System.Windows.Forms.Padding(2);
             this.btnRemovePodcast.Name = "btnRemovePodcast";
             this.btnRemovePodcast.Size = new System.Drawing.Size(82, 25);
             this.btnRemovePodcast.TabIndex = 3;
@@ -98,7 +99,7 @@
             // txtURL
             // 
             this.txtURL.Location = new System.Drawing.Point(9, 72);
-            this.txtURL.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtURL.Margin = new System.Windows.Forms.Padding(2);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(140, 20);
             this.txtURL.TabIndex = 4;
@@ -107,7 +108,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(268, 71);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(82, 21);
             this.comboBox1.TabIndex = 5;
@@ -116,7 +117,7 @@
             // 
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(174, 71);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(82, 21);
             this.comboBox2.TabIndex = 6;
@@ -125,11 +126,12 @@
             // 
             this.lvEpisodes.HideSelection = false;
             this.lvEpisodes.Location = new System.Drawing.Point(9, 316);
-            this.lvEpisodes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvEpisodes.Margin = new System.Windows.Forms.Padding(2);
             this.lvEpisodes.Name = "lvEpisodes";
             this.lvEpisodes.Size = new System.Drawing.Size(343, 115);
             this.lvEpisodes.TabIndex = 7;
             this.lvEpisodes.UseCompatibleStateImageBehavior = false;
+            this.lvEpisodes.Click += new System.EventHandler(this.lvEpisodes_Click);
             // 
             // label1
             // 
@@ -153,7 +155,7 @@
             // 
             this.lvCats.HideSelection = false;
             this.lvCats.Location = new System.Drawing.Point(383, 121);
-            this.lvCats.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvCats.Margin = new System.Windows.Forms.Padding(2);
             this.lvCats.Name = "lvCats";
             this.lvCats.Size = new System.Drawing.Size(284, 101);
             this.lvCats.TabIndex = 10;
@@ -162,7 +164,7 @@
             // btnRemoveCat
             // 
             this.btnRemoveCat.Location = new System.Drawing.Point(585, 22);
-            this.btnRemoveCat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRemoveCat.Margin = new System.Windows.Forms.Padding(2);
             this.btnRemoveCat.Name = "btnRemoveCat";
             this.btnRemoveCat.Size = new System.Drawing.Size(82, 25);
             this.btnRemoveCat.TabIndex = 11;
@@ -172,7 +174,7 @@
             // btnSaveCat
             // 
             this.btnSaveCat.Location = new System.Drawing.Point(484, 22);
-            this.btnSaveCat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSaveCat.Margin = new System.Windows.Forms.Padding(2);
             this.btnSaveCat.Name = "btnSaveCat";
             this.btnSaveCat.Size = new System.Drawing.Size(82, 25);
             this.btnSaveCat.TabIndex = 12;
@@ -182,7 +184,7 @@
             // btnCreateCat
             // 
             this.btnCreateCat.Location = new System.Drawing.Point(383, 22);
-            this.btnCreateCat.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreateCat.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateCat.Name = "btnCreateCat";
             this.btnCreateCat.Size = new System.Drawing.Size(82, 25);
             this.btnCreateCat.TabIndex = 13;
@@ -192,7 +194,7 @@
             // txtCatName
             // 
             this.txtCatName.Location = new System.Drawing.Point(383, 72);
-            this.txtCatName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCatName.Margin = new System.Windows.Forms.Padding(2);
             this.txtCatName.Name = "txtCatName";
             this.txtCatName.Size = new System.Drawing.Size(284, 20);
             this.txtCatName.TabIndex = 14;
@@ -203,6 +205,7 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(380, 251);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.MaximumSize = new System.Drawing.Size(287, 40);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(138, 13);
             this.lblTitle.TabIndex = 15;
@@ -210,11 +213,10 @@
             // 
             // lblDesc
             // 
-            this.lblDesc.AutoSize = true;
-            this.lblDesc.Location = new System.Drawing.Point(380, 272);
+            this.lblDesc.Location = new System.Drawing.Point(380, 301);
             this.lblDesc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(71, 13);
+            this.lblDesc.Size = new System.Drawing.Size(287, 130);
             this.lblDesc.TabIndex = 16;
             this.lblDesc.Text = "Beskrivning...";
             // 
@@ -281,7 +283,7 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Avsnitt";
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -310,8 +312,8 @@
             this.Controls.Add(this.btnSavePodcast);
             this.Controls.Add(this.lvPodcasts);
             this.Controls.Add(this.btnAddPodcast);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "MainForm";
             this.Text = "RSS Reader";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

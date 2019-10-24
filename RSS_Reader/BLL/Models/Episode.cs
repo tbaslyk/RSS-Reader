@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class Podcast
+    public class Episode
     {
         public int EpisodeNumber { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
 
 
-        public Podcast(int EpisodeNumber)
+        public Episode(int episodeNumber, string title, string description)
         {
-            this.EpisodeNumber = EpisodeNumber;
+            EpisodeNumber = episodeNumber;
+            Title = title;
+            Description = description;
 
         }
 

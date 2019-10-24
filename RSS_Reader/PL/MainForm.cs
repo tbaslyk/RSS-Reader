@@ -92,6 +92,14 @@ namespace PL
 
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
+            foreach (var item in _FeedGroup.Feeds)
+            {
+            FeedManager.saveFeeds(item);
+            }
+            
+        }
     }
 }

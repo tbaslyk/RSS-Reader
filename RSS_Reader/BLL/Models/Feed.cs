@@ -21,5 +21,10 @@ namespace BLL
             
         }
 
+        public Feed()
+        {
+
+        }
+
     }
 }

@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.ServiceModel.Syndication;
+using DAL;
 
 namespace BLL
 {
     public static class FeedManager
     {
+
+
+        
         private static string GetTitle(string url)
         {
             SyndicationFeed feed = RSSReader.Reader(url);
@@ -31,6 +35,11 @@ namespace BLL
             return episodes;
         }
 
+        public static void saveFeeds(object o)
+        {
+            Serialize.serialize(o);
+
+        }
         public static Feed CreateFeed(string url)
         {
             int number = GetEpisodes(url).Count();

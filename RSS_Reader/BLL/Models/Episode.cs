@@ -20,6 +20,9 @@ namespace BLL
             Description = description;
 
         }
+        public Episode()
+        {
 
+        }
     }
 }

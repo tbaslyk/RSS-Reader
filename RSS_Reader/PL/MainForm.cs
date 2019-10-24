@@ -31,7 +31,7 @@ namespace PL
         {
             var listWithFeeds = FeedManager.LoadFeeds();
 
-            if (!listWithFeeds.Any())
+            if (!listWithFeeds.Contains(null))
             {
                 _FeedGroup.AddRange(listWithFeeds);
 

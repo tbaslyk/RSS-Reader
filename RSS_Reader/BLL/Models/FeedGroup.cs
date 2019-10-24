@@ -8,7 +8,7 @@ namespace BLL.Models
 {
     public class FeedGroup
     {
-        public List<Feed> Feeds { get; set; }
+        public List<Feed> Feeds { get; private set; }
 
         public FeedGroup()
         {
@@ -17,7 +17,11 @@ namespace BLL.Models
 
         public void Add(Feed feed)
         {
-            Feeds.Add(feed);
+            if(!Feeds.Any((f) => f.Name == feed.Name))
+            {
+                Feeds.Add(feed);
+            }
+            
         } 
 
     }

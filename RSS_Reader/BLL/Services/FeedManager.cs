@@ -11,9 +11,17 @@ namespace BLL
 {
     public static class FeedManager
     {
+        public static List<Feed> LoadFeeds()
+        {
+            List<Feed> feeds = Serializer.DeSerialize<List<Feed>>();
+            return feeds;
+        }
 
+        public static void SaveFeeds(List<Feed> feeds)
+        {
+            Serializer.Serialize<List<Feed>>(feeds);
+        }
 
-        
         private static string GetTitle(string url)
         {
             SyndicationFeed feed = RSSReader.Reader(url);
@@ -26,7 +34,7 @@ namespace BLL
             List<Episode> episodes = new List<Episode>();
             int episodeCounter = 1;
 
-            foreach(var item in feed.Items.ToList())
+            foreach (var item in feed.Items.ToList())
             {
                 episodes.Add(new Episode(episodeCounter, item.Title.Text, item.Summary.Text));
                 episodeCounter++;
@@ -35,27 +43,6 @@ namespace BLL
             return episodes;
         }
 
-
-        public static List<Feed> deSerialize()
-        {
-            var deSerializedList = Serialize.deSerialize();
-            List<Feed> listOfFeeds = new List<Feed>();
-
-            foreach (object item in deSerializedList)
-            {
-                Feed feed = (Feed) item;               
-                listOfFeeds.Add(feed);
-
-            }
-
-
-            return listOfFeeds;
-        }
-        public static void saveFeeds(object o)
-        {
-            Serialize.serialize(o);
-
-        }
         public static Feed CreateFeed(string url)
         {
             int number = GetEpisodes(url).Count();

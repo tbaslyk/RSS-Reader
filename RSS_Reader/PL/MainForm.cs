@@ -29,13 +29,17 @@ namespace PL
 
         private void loadListWithFeeds()
         {
-            var listWithFeeds = FeedManager.deSerialize();
-            _FeedGroup.Feeds.AddRange(listWithFeeds);
+            var listWithFeeds = FeedManager.LoadFeeds();
 
-            foreach (Feed feed in _FeedGroup.Feeds)
+            if (listWithFeeds != null)
             {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
-                lvPodcasts.Items.Add(item);
+                _FeedGroup.Feeds.AddRange(listWithFeeds);
+
+                foreach (Feed feed in _FeedGroup.Feeds)
+                {
+                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
+                    lvPodcasts.Items.Add(item);
+                }
             }
             
 
@@ -101,18 +105,9 @@ namespace PL
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            foreach (var item in _FeedGroup.Feeds)
-            {
-            FeedManager.saveFeeds(item);
-            }
+            FeedManager.SaveFeeds(_FeedGroup.Feeds);
             
         }
     }

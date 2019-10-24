@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Feed.cs" />
-    <Compile Include="FeedManager.cs" />
+    <Compile Include="Services\FeedManager.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\FeedGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

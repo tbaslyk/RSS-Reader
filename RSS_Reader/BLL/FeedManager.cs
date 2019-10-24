@@ -35,6 +35,22 @@ namespace BLL
             return episodes;
         }
 
+
+        public static List<Feed> deSerialize()
+        {
+            var deSerializedList = Serialize.deSerialize();
+            List<Feed> listOfFeeds = new List<Feed>();
+
+            foreach (object item in deSerializedList)
+            {
+                Feed feed = (Feed) item;               
+                listOfFeeds.Add(feed);
+
+            }
+
+
+            return listOfFeeds;
+        }
         public static void saveFeeds(object o)
         {
             Serialize.serialize(o);

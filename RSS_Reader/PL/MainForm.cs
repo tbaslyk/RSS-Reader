@@ -24,8 +24,22 @@ namespace PL
             IntializeColumns();
 
             _FeedGroup = new FeedGroup();
+            loadListWithFeeds();
         }
 
+        private void loadListWithFeeds()
+        {
+            var listWithFeeds = FeedManager.deSerialize();
+            _FeedGroup.Feeds.AddRange(listWithFeeds);
+
+            foreach (Feed feed in _FeedGroup.Feeds)
+            {
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
+                lvPodcasts.Items.Add(item);
+            }
+            
+
+        }
         private void IntializeColumns()
         {
             lvPodcasts.Columns.Add("Antal");

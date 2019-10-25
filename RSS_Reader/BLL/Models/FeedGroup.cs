@@ -50,5 +50,10 @@ namespace BLL.Models
             return sortedFeeds;
         }
 
+        public List<Feed> GetAllFeeds()
+        {
+            return Feeds;
+        }
+
     }
 }

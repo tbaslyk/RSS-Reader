@@ -33,10 +33,9 @@ namespace DAL
 
             if (File.Exists(path))
             {
-                XmlSerializer xs = new XmlSerializer(typeof(T));
-
                 using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read))
                 {
+                    XmlSerializer xs = new XmlSerializer(typeof(T));
                     T data = (T)xs.Deserialize(fs);
                     return data;
                 }
@@ -46,13 +45,5 @@ namespace DAL
                 return default(T);
             }
         }
-
-       
-        public static void deleteFromList()
-        {
-
-
-        }
-
     }
 }

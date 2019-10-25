@@ -16,7 +16,8 @@ namespace PL
 {
     public partial class MainForm : Form
     {
-        public FeedGroup _FeedGroup;
+        private FeedGroup _FeedGroup;
+        private CategoryGroup _CategoryGroup;
 
         public MainForm()
         {
@@ -24,10 +25,11 @@ namespace PL
             IntializeColumns();
 
             _FeedGroup = new FeedGroup();
-            LoadWithFeeds();
+            _CategoryGroup = new CategoryGroup();
+            LoadAllFeeds();
         }
 
-        private void LoadWithFeeds()
+        private void LoadAllFeeds()
         {
             var listWithFeeds = FeedManager.LoadFeeds();
 
@@ -41,9 +43,8 @@ namespace PL
                     lvPodcasts.Items.Add(item);
                 }
             }
-            
-
         }
+
         private void IntializeColumns()
         {
             lvPodcasts.Columns.Add("Antal");
@@ -57,11 +58,14 @@ namespace PL
             lvEpisodes.Columns.Add("Namn");
             lvEpisodes.View = View.Details;
             lvEpisodes.FullRowSelect = true;
+
+            lvCats.Columns.Add("Namn");
+            lvCats.View = View.Details;
         }
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            var feed = FeedManager.CreateFeed(txtURL.Text,(Category) cmbCat.SelectedItem);
+            var feed = FeedManager.CreateFeed(txtURL.Text, (Category) cmbCat.SelectedItem);
             _FeedGroup.Add(feed);
 
             ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
@@ -107,12 +111,19 @@ namespace PL
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FeedManager.SaveFeeds(_FeedGroup.Feeds);
+            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
             
         }
 
         private void btnCreateCat_Click(object sender, EventArgs e)
         {
+            Category newCategory = new Category(txtCatName.Text);
+
+            _CategoryGroup.Add(newCategory);
+            cmbCat.Items.Add(newCategory);
+
+            lvCats.Items.Add(newCategory.Name);
+
 
         }
 

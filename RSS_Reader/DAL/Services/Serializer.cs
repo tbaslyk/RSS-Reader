@@ -47,6 +47,12 @@ namespace DAL
             }
         }
 
+       
+        public static void deleteFromList()
+        {
+
+
+        }
 
     }
 }

@@ -61,7 +61,7 @@ namespace PL
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            var feed = FeedManager.CreateFeed(txtURL.Text);
+            var feed = FeedManager.CreateFeed(txtURL.Text,(Category) cmbCat.SelectedItem);
             _FeedGroup.Add(feed);
 
             ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
@@ -109,6 +109,11 @@ namespace PL
         {
             FeedManager.SaveFeeds(_FeedGroup.Feeds);
             
+        }
+
+        private void btnCreateCat_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

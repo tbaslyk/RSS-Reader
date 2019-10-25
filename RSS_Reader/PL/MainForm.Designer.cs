@@ -33,7 +33,7 @@
             this.btnSavePodcast = new System.Windows.Forms.Button();
             this.btnRemovePodcast = new System.Windows.Forms.Button();
             this.txtURL = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbCat = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.lvEpisodes = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
@@ -104,14 +104,14 @@
             this.txtURL.Size = new System.Drawing.Size(185, 22);
             this.txtURL.TabIndex = 4;
             // 
-            // comboBox1
+            // cmbCat
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(357, 87);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(108, 24);
-            this.comboBox1.TabIndex = 5;
+            this.cmbCat.FormattingEnabled = true;
+            this.cmbCat.Location = new System.Drawing.Point(357, 87);
+            this.cmbCat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmbCat.Name = "cmbCat";
+            this.cmbCat.Size = new System.Drawing.Size(108, 24);
+            this.cmbCat.TabIndex = 5;
             // 
             // comboBox2
             // 
@@ -188,6 +188,7 @@
             this.btnCreateCat.TabIndex = 13;
             this.btnCreateCat.Text = "Skapa";
             this.btnCreateCat.UseVisualStyleBackColor = true;
+            this.btnCreateCat.Click += new System.EventHandler(this.btnCreateCat_Click);
             // 
             // txtCatName
             // 
@@ -309,7 +310,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lvEpisodes);
             this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbCat);
             this.Controls.Add(this.txtURL);
             this.Controls.Add(this.btnRemovePodcast);
             this.Controls.Add(this.btnSavePodcast);
@@ -331,7 +332,7 @@
         private System.Windows.Forms.Button btnSavePodcast;
         private System.Windows.Forms.Button btnRemovePodcast;
         private System.Windows.Forms.TextBox txtURL;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbCat;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ListView lvEpisodes;
         private System.Windows.Forms.Label label1;

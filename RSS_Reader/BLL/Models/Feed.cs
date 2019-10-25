@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +13,14 @@ namespace BLL
         public string Name { get; set; }
         public int NumberOfEpisodes { get; set; }
         public List<Episode> Episodes { get; set; }
+        public Category Category { get; set; }
 
-        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes)
+        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category)
         {
             Name = podcastName;
             NumberOfEpisodes = numberOfEpisodes;
             Episodes = episodes;
+            Category = category;
             
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.ServiceModel.Syndication;
 using DAL;
+using BLL.Models;
 
 namespace BLL
 {
@@ -44,13 +45,13 @@ namespace BLL
             return episodes;
         }
 
-        public static Feed CreateFeed(string url)
+        public static Feed CreateFeed(string url, Category category)
         {
             int number = GetEpisodes(url).Count();
             string name = GetTitle(url);
             List<Episode> episodes = GetEpisodes(url);
 
-            return new Feed(name, number, episodes);
+            return new Feed(name, number, episodes, category);
         }
     }
 }

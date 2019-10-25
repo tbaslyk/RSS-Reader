@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Services\FeedManager.cs" />
     <Compile Include="Models\Episode.cs" />

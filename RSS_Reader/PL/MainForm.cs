@@ -115,5 +115,14 @@ namespace PL
         {
 
         }
+
+        private void btnRemovePodcast_Click(object sender, EventArgs e)
+        {
+
+            string selectedItem = lvPodcasts.SelectedItems[0].SubItems[1].Text;
+
+            _FeedGroup.Remove(selectedItem);
+            lvPodcasts.SelectedItems[0].Remove();
+        }
     }
 }

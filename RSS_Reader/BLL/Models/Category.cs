@@ -13,6 +13,9 @@ namespace BLL.Models
         {
             Name = name;
         }
+        public Category()
+        {
 
+        }
     }
 }

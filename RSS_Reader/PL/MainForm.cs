@@ -110,5 +110,14 @@ namespace PL
             FeedManager.SaveFeeds(_FeedGroup.Feeds);
             
         }
+
+        private void btnRemovePodcast_Click(object sender, EventArgs e)
+        {
+
+           string feedName = lvPodcasts.SelectedItems[0].SubItems[1].Text;
+            _FeedGroup.Remove(feedName);
+            lvPodcasts.SelectedItems[0].Remove();
+
+        }
     }
 }

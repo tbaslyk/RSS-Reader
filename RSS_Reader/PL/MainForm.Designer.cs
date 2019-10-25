@@ -95,6 +95,7 @@
             this.btnRemovePodcast.TabIndex = 3;
             this.btnRemovePodcast.Text = "Ta bort";
             this.btnRemovePodcast.UseVisualStyleBackColor = true;
+            this.btnRemovePodcast.Click += new System.EventHandler(this.btnRemovePodcast_Click);
             // 
             // txtURL
             // 

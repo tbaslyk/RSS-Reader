@@ -40,7 +40,7 @@ namespace PL
 
                 foreach (Feed feed in _FeedGroup.GetSortedFeeds())
                 {
-                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
+                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
                     lvPodcasts.Items.Add(item);
                 }
             }
@@ -50,11 +50,11 @@ namespace PL
         {
             var categories = CategoryManager.LoadCategories();
 
-            if(categories != null)
+            if (categories != null)
             {
                 _CategoryGroup.AddRange(categories);
 
-                foreach(Category category in _CategoryGroup.GetAllCategories())
+                foreach (Category category in _CategoryGroup.GetAllCategories())
                 {
                     lvCats.Items.Add(category.Name);
                     cmbCat.Items.Add(category.Name);
@@ -83,23 +83,32 @@ namespace PL
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            var feed = FeedManager.CreateFeed(txtURL.Text, (Category) cmbCat.SelectedItem);
-            _FeedGroup.Add(feed);
+            string selectedCategory = (string)cmbCat.SelectedItem;
 
-            ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
+            foreach (Category category in _CategoryGroup.GetAllCategories())
+            {
+                if (category.Name.Equals(selectedCategory))
+                {
+                    var feed = FeedManager.CreateFeed(txtURL.Text, category);
+                    _FeedGroup.Add(feed);
 
-            lvPodcasts.Items.Add(item);
+                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+
+                    lvPodcasts.Items.Add(item);
+                }
+
+            }
         }
 
         private void lvPodcasts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             lvEpisodes.Items.Clear();
-            
-            foreach(Feed feed in _FeedGroup.GetSortedFeeds())
+
+            foreach (Feed feed in _FeedGroup.GetSortedFeeds())
             {
-                if(feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
+                if (feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
                 {
-                    foreach(Episode episode in feed.GetEpisodesByNew())
+                    foreach (Episode episode in feed.GetEpisodesByNew())
                     {
                         ListViewItem item = new ListViewItem(new[] { episode.EpisodeNumber.ToString(), episode.Title });
                         lvEpisodes.Items.Add(item);
@@ -116,7 +125,7 @@ namespace PL
                 {
                     foreach (Episode episode in feed.Episodes)
                     {
-                        if(episode.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text))
+                        if (episode.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text))
                         {
                             lblTitle.Text = episode.Title;
                             lblDesc.Text = episode.Description;
@@ -141,8 +150,8 @@ namespace PL
         {
             FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
             CategoryManager.SaveCategories(_CategoryGroup.GetAllCategories());
-        }  
-        
+        }
+
 
         private void btnRemovePodcast_Click(object sender, EventArgs e)
         {

@@ -149,5 +149,11 @@ namespace PL
             _FeedGroup.Remove(lvPodcasts.SelectedItems[0].SubItems[1].Text);
             lvPodcasts.SelectedItems[0].Remove();
         }
+
+        private void btnRemoveCat_Click(object sender, EventArgs e)
+        {
+            _CategoryGroup.Remove(lvCats.SelectedItems[0].Text);
+            lvCats.SelectedItems[0].Remove();
+        }
     }
 }

@@ -169,6 +169,7 @@
             this.btnRemoveCat.TabIndex = 11;
             this.btnRemoveCat.Text = "Ta bort";
             this.btnRemoveCat.UseVisualStyleBackColor = true;
+            this.btnRemoveCat.Click += new System.EventHandler(this.btnRemoveCat_Click);
             // 
             // btnSaveCat
             // 

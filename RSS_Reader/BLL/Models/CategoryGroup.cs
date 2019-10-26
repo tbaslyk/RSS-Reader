@@ -9,16 +9,26 @@ namespace BLL.Models
     public class CategoryGroup
     {
 
-        public List<Category> categories { get; set; }
+        public List<Category> Categories { get; set; }
 
         public CategoryGroup()
         {
-            categories = new List<Category>();
+            Categories = new List<Category>();
         }
 
         public void Add(Category category)
         {
-            categories.Add(category);
+            Categories.Add(category);
+        }
+
+        public void AddRange(List<Category> categories)
+        {
+            Categories = categories;
+        }
+
+        public List<Category> GetAllCategories()
+        {
+            return Categories;
         }
 
 

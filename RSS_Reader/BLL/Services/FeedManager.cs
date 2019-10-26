@@ -14,9 +14,7 @@ namespace BLL
     {
         public static List<Feed> LoadFeeds()
         {
-            List<Feed> feeds = Serializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
-            
-            return feeds;
+           return Serializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
         }
 
         public static void SaveFeeds(List<Feed> feeds)

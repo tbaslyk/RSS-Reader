@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using BLL;
 using BLL.Models;
-
+using BLL.Services;
 
 namespace PL
 {
@@ -27,20 +27,38 @@ namespace PL
             _FeedGroup = new FeedGroup();
             _CategoryGroup = new CategoryGroup();
             LoadAllFeeds();
+            LoadAllCategories();
         }
 
         private void LoadAllFeeds()
         {
-            var listWithFeeds = FeedManager.LoadFeeds();
+            var feeds = FeedManager.LoadFeeds();
 
-            if (listWithFeeds != null)
+            if (feeds != null)
             {
-                _FeedGroup.AddRange(listWithFeeds);
+                _FeedGroup.AddRange(feeds);
 
                 foreach (Feed feed in _FeedGroup.GetSortedFeeds())
                 {
                     ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name });
                     lvPodcasts.Items.Add(item);
+                }
+            }
+        }
+
+        private void LoadAllCategories()
+        {
+            var categories = CategoryManager.LoadCategories();
+
+            if(categories != null)
+            {
+                _CategoryGroup.AddRange(categories);
+
+                foreach(Category category in _CategoryGroup.GetAllCategories())
+                {
+                    lvCats.Items.Add(category.Name);
+                    cmbCat.Items.Add(category.Name);
+
                 }
             }
         }
@@ -109,30 +127,26 @@ namespace PL
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
-            
-        }
-
         private void btnCreateCat_Click(object sender, EventArgs e)
         {
             Category newCategory = new Category(txtCatName.Text);
 
             _CategoryGroup.Add(newCategory);
-            cmbCat.Items.Add(newCategory);
+            cmbCat.Items.Add(newCategory.Name);
 
             lvCats.Items.Add(newCategory.Name);
-
-
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
+            CategoryManager.SaveCategories(_CategoryGroup.GetAllCategories());
+        }  
+        
 
         private void btnRemovePodcast_Click(object sender, EventArgs e)
         {
-
-            string selectedItem = lvPodcasts.SelectedItems[0].SubItems[1].Text;
-
-            _FeedGroup.Remove(selectedItem);
+            _FeedGroup.Remove(lvPodcasts.SelectedItems[0].SubItems[1].Text);
             lvPodcasts.SelectedItems[0].Remove();
         }
     }

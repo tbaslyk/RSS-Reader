@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IGroup.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryGroup.cs" />
     <Compile Include="Models\Feed.cs" />
+    <Compile Include="Services\CategoryManager.cs" />
     <Compile Include="Services\FeedManager.cs" />
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\FeedGroup.cs" />
@@ -58,7 +60,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
     <Folder Include="Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

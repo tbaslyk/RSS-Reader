@@ -15,12 +15,15 @@ namespace BLL
         public List<Episode> Episodes { get; set; }
         public Category Category { get; set; }
 
-        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category)
+        public string Url { get; set; }
+
+        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url)
         {
             Name = podcastName;
             NumberOfEpisodes = numberOfEpisodes;
             Episodes = episodes;
             Category = category;
+            Url = url;
             
         }
 

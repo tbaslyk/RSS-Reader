@@ -49,7 +49,7 @@ namespace BLL
             string name = GetTitle(url);
             List<Episode> episodes = GetEpisodes(url);
 
-            return new Feed(name, number, episodes, category);
+            return new Feed(name, number, episodes, category, url);
         }
     }
 }

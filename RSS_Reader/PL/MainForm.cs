@@ -116,6 +116,10 @@ namespace PL
                     break;
                 }
             }
+
+
+
+
         }
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
@@ -163,6 +167,60 @@ namespace PL
         {
             _CategoryGroup.Remove(lvCats.SelectedItems[0].Text);
             lvCats.SelectedItems[0].Remove();
+        }
+
+        private void lvCats_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            string category = lvCats.SelectedItems[0].Text;
+            txtCatName.Text = category;
+        }
+
+        private void btnSaveCat_Click(object sender, EventArgs e)
+        {
+            var selectedCat = lvCats.SelectedItems[0].Text;
+            
+            foreach(Category category in _CategoryGroup.GetAllCategories())
+            {
+                if(category.Name.Equals(selectedCat))
+                {
+                    category.Name = txtCatName.Text;
+                    UpdateCategoryListView();
+                }
+            }
+
+            foreach(Feed feed in _FeedGroup.GetAllFeeds())
+            {
+                if(feed.Category.Name.Equals(selectedCat))
+                {
+                    feed.Category.Name = txtCatName.Text;
+
+                }
+            }
+            UpdateFeedListView();
+
+        }
+
+        private void UpdateCategoryListView()
+        {
+            lvCats.Items.Clear();
+
+            foreach(Category category in _CategoryGroup.GetAllCategories())
+            {
+                lvCats.Items.Add(category.Name);
+            }
+        }
+
+        private void UpdateFeedListView()
+        {
+            lvPodcasts.Items.Clear();
+
+            foreach(Feed feed in _FeedGroup.GetAllFeeds())
+            {
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+
+                lvPodcasts.Items.Add(item);
+
+            }
         }
     }
 }

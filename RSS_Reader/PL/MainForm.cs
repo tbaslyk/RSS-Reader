@@ -81,6 +81,7 @@ namespace PL
             foreach (Category category in _CategoryGroup.GetAllCategories())
             {
                 lvCats.Items.Add(category.Name);
+                cmbCat.Items.Add(category.Name);
             }
         }
 
@@ -96,8 +97,7 @@ namespace PL
             }
         }
 
-
-        private void LV_MouseUp(object sender, MouseEventArgs e)
+        private void lv_MouseUp(object sender, MouseEventArgs e)
         {
             ListView lv = sender as ListView;
 
@@ -107,7 +107,6 @@ namespace PL
                     lv.FocusedItem.Selected = true;
             }
         }
-
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {

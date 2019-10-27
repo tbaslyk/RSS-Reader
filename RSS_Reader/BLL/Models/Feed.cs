@@ -14,7 +14,6 @@ namespace BLL
         public int NumberOfEpisodes { get; set; }
         public List<Episode> Episodes { get; set; }
         public Category Category { get; set; }
-
         public string Url { get; set; }
 
         public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url)

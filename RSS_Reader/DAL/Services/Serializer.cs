@@ -42,7 +42,7 @@ namespace DAL
             }
             else
             {
-                return default(T);
+                return default;
             }
         }
     }

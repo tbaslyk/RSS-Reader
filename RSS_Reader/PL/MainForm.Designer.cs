@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnAddPodcast = new System.Windows.Forms.Button();
             this.lvPodcasts = new System.Windows.Forms.ListView();
             this.btnSavePodcast = new System.Windows.Forms.Button();
@@ -75,7 +76,7 @@
             this.lvPodcasts.TabIndex = 1;
             this.lvPodcasts.UseCompatibleStateImageBehavior = false;
             this.lvPodcasts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvPodcasts_Click);
-            this.lvPodcasts.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LV_MouseUp);
+            this.lvPodcasts.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_MouseUp);
             // 
             // btnSavePodcast
             // 
@@ -163,7 +164,7 @@
             this.lvCats.TabIndex = 10;
             this.lvCats.UseCompatibleStateImageBehavior = false;
             this.lvCats.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvCats_MouseDoubleClick);
-            this.lvCats.MouseUp += new System.Windows.Forms.MouseEventHandler(this.LV_MouseUp);
+            this.lvCats.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_MouseUp);
             // 
             // btnRemoveCat
             // 
@@ -214,18 +215,16 @@
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.MaximumSize = new System.Drawing.Size(287, 40);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(138, 13);
+            this.lblTitle.Size = new System.Drawing.Size(0, 13);
             this.lblTitle.TabIndex = 15;
-            this.lblTitle.Text = "Podcast #0: Avsnitt #0";
             // 
             // lblDesc
             // 
-            this.lblDesc.Location = new System.Drawing.Point(380, 301);
+            this.lblDesc.Location = new System.Drawing.Point(380, 286);
             this.lblDesc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(287, 130);
             this.lblDesc.TabIndex = 16;
-            this.lblDesc.Text = "Beskrivning...";
             // 
             // label5
             // 
@@ -319,6 +318,7 @@
             this.Controls.Add(this.btnSavePodcast);
             this.Controls.Add(this.lvPodcasts);
             this.Controls.Add(this.btnAddPodcast);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "RSS Reader";

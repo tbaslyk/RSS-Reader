@@ -16,8 +16,8 @@ namespace PL
 {
     public partial class MainForm : Form
     {
-        private FeedGroup _FeedGroup;
-        private CategoryGroup _CategoryGroup;
+        private readonly FeedGroup _FeedGroup;
+        private readonly CategoryGroup _CategoryGroup;
 
         public MainForm()
         {
@@ -26,41 +26,9 @@ namespace PL
 
             _FeedGroup = new FeedGroup();
             _CategoryGroup = new CategoryGroup();
+
             LoadAllFeeds();
             LoadAllCategories();
-        }
-
-        private void LoadAllFeeds()
-        {
-            var feeds = FeedManager.LoadFeeds();
-
-            if (feeds != null)
-            {
-                _FeedGroup.AddRange(feeds);
-
-                foreach (Feed feed in _FeedGroup.GetSortedFeeds())
-                {
-                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
-                    lvPodcasts.Items.Add(item);
-                }
-            }
-        }
-
-        private void LoadAllCategories()
-        {
-            var categories = CategoryManager.LoadCategories();
-
-            if (categories != null)
-            {
-                _CategoryGroup.AddRange(categories);
-
-                foreach (Category category in _CategoryGroup.GetAllCategories())
-                {
-                    lvCats.Items.Add(category.Name);
-                    cmbCat.Items.Add(category.Name);
-
-                }
-            }
         }
 
         private void IntializeColumns()
@@ -71,19 +39,79 @@ namespace PL
             lvPodcasts.Columns.Add("Kategori");
             lvPodcasts.View = View.Details;
             lvPodcasts.FullRowSelect = true;
+            lvPodcasts.MultiSelect = false;
 
             lvEpisodes.Columns.Add("Avsnitt");
             lvEpisodes.Columns.Add("Namn");
             lvEpisodes.View = View.Details;
             lvEpisodes.FullRowSelect = true;
+            lvEpisodes.MultiSelect = false;
 
             lvCats.Columns.Add("Namn");
             lvCats.View = View.Details;
+            lvCats.MultiSelect = false;
         }
+
+        private void LoadAllFeeds()
+        {
+            var feeds = FeedManager.LoadFeeds();
+
+            if (feeds != null)
+            {
+                _FeedGroup.AddRange(feeds);
+                UpdateFeedListView();
+            }
+        }
+
+        private void LoadAllCategories()
+        {
+            var categories = CategoryManager.LoadCategories();
+
+            if (categories != null)
+            {
+                _CategoryGroup.AddRange(categories);
+                UpdateCategoryListView();
+            }
+        }
+
+        private void UpdateCategoryListView()
+        {
+            lvCats.Items.Clear();
+
+            foreach (Category category in _CategoryGroup.GetAllCategories())
+            {
+                lvCats.Items.Add(category.Name);
+            }
+        }
+
+        private void UpdateFeedListView()
+        {
+            lvPodcasts.Items.Clear();
+
+            foreach (Feed feed in _FeedGroup.GetAllFeeds())
+            {
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+
+                lvPodcasts.Items.Add(item);
+            }
+        }
+
+
+        private void LV_MouseUp(object sender, MouseEventArgs e)
+        {
+            ListView lv = sender as ListView;
+
+            if (lv.FocusedItem != null)
+            {
+                if (lv.SelectedItems.Count == 0)
+                    lv.FocusedItem.Selected = true;
+            }
+        }
+
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            string selectedCategory = (string)cmbCat.SelectedItem;
+            string selectedCategory = (string) cmbCat.SelectedItem;
 
             foreach (Category category in _CategoryGroup.GetAllCategories())
             {
@@ -96,11 +124,10 @@ namespace PL
 
                     lvPodcasts.Items.Add(item);
                 }
-
             }
         }
 
-        private void lvPodcasts_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void lvPodcasts_Click(object sender, MouseEventArgs e)
         {
             lvEpisodes.Items.Clear();
 
@@ -116,11 +143,8 @@ namespace PL
                     break;
                 }
             }
-
-
-
-
         }
+
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
             foreach (Feed feed in _FeedGroup.GetSortedFeeds())
@@ -150,13 +174,6 @@ namespace PL
             lvCats.Items.Add(newCategory.Name);
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
-            CategoryManager.SaveCategories(_CategoryGroup.GetAllCategories());
-        }
-
-
         private void btnRemovePodcast_Click(object sender, EventArgs e)
         {
             _FeedGroup.Remove(lvPodcasts.SelectedItems[0].SubItems[1].Text);
@@ -178,19 +195,19 @@ namespace PL
         private void btnSaveCat_Click(object sender, EventArgs e)
         {
             var selectedCat = lvCats.SelectedItems[0].Text;
-            
-            foreach(Category category in _CategoryGroup.GetAllCategories())
+
+            foreach (Category category in _CategoryGroup.GetAllCategories())
             {
-                if(category.Name.Equals(selectedCat))
+                if (category.Name.Equals(selectedCat))
                 {
                     category.Name = txtCatName.Text;
                     UpdateCategoryListView();
                 }
             }
 
-            foreach(Feed feed in _FeedGroup.GetAllFeeds())
+            foreach (Feed feed in _FeedGroup.GetAllFeeds())
             {
-                if(feed.Category.Name.Equals(selectedCat))
+                if (feed.Category.Name.Equals(selectedCat))
                 {
                     feed.Category.Name = txtCatName.Text;
 
@@ -200,27 +217,10 @@ namespace PL
 
         }
 
-        private void UpdateCategoryListView()
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            lvCats.Items.Clear();
-
-            foreach(Category category in _CategoryGroup.GetAllCategories())
-            {
-                lvCats.Items.Add(category.Name);
-            }
-        }
-
-        private void UpdateFeedListView()
-        {
-            lvPodcasts.Items.Clear();
-
-            foreach(Feed feed in _FeedGroup.GetAllFeeds())
-            {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
-
-                lvPodcasts.Items.Add(item);
-
-            }
+            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
+            CategoryManager.SaveCategories(_CategoryGroup.GetAllCategories());
         }
     }
 }

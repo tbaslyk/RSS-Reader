@@ -33,7 +33,9 @@ namespace BLL.Models
 
         public void Remove(string categoryName)
         {
-            var result = Categories.Where(x => x.Name == categoryName).ToList();
+            var result = Categories
+                .Where(x => x.Name == categoryName)
+                .ToList();
 
             foreach (var item in result)
             {

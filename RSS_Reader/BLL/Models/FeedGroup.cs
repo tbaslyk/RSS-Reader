@@ -27,7 +27,9 @@ namespace BLL.Models
 
         public void Remove(string feedName)
         {
-            var result = Feeds.Where(x => x.Name == feedName).ToList();
+            var result = Feeds
+                .Where(x => x.Name == feedName)
+                .ToList();
 
             foreach (var item in result)
             {

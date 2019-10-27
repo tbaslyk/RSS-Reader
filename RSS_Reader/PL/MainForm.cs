@@ -33,21 +33,21 @@ namespace PL
 
         private void IntializeColumns()
         {
-            lvPodcasts.Columns.Add("Antal");
-            lvPodcasts.Columns.Add("Namn");
-            lvPodcasts.Columns.Add("Frekvens");
-            lvPodcasts.Columns.Add("Kategori");
+            lvPodcasts.Columns.Add("Antal", -2);
+            lvPodcasts.Columns.Add("Namn", -1);
+            lvPodcasts.Columns.Add("Frekvens", -1);
+            lvPodcasts.Columns.Add("Kategori", -1);
             lvPodcasts.View = View.Details;
             lvPodcasts.FullRowSelect = true;
             lvPodcasts.MultiSelect = false;
 
-            lvEpisodes.Columns.Add("Avsnitt");
-            lvEpisodes.Columns.Add("Namn");
+            lvEpisodes.Columns.Add("Avsnitt", -2);
+            lvEpisodes.Columns.Add("Namn", -2);
             lvEpisodes.View = View.Details;
             lvEpisodes.FullRowSelect = true;
             lvEpisodes.MultiSelect = false;
 
-            lvCats.Columns.Add("Namn");
+            lvCats.Columns.Add("Namn", -1);
             lvCats.View = View.Details;
             lvCats.MultiSelect = false;
         }
@@ -129,6 +129,8 @@ namespace PL
         private void lvPodcasts_Click(object sender, MouseEventArgs e)
         {
             lvEpisodes.Items.Clear();
+            lblTitle.Text = "";
+            lblDesc.Text = "";
 
             foreach (Feed feed in _FeedGroup.GetSortedFeeds())
             {
@@ -185,7 +187,7 @@ namespace PL
             lvCats.SelectedItems[0].Remove();
         }
 
-        private void lvCats_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void lvCats_Click(object sender, MouseEventArgs e)
         {
             string category = lvCats.SelectedItems[0].Text;
             txtCatName.Text = category;

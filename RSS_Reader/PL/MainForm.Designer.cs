@@ -135,6 +135,7 @@
             this.lvEpisodes.TabIndex = 7;
             this.lvEpisodes.UseCompatibleStateImageBehavior = false;
             this.lvEpisodes.Click += new System.EventHandler(this.lvEpisodes_Click);
+            this.lvEpisodes.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_MouseUp);
             // 
             // label1
             // 
@@ -163,7 +164,7 @@
             this.lvCats.Size = new System.Drawing.Size(284, 101);
             this.lvCats.TabIndex = 10;
             this.lvCats.UseCompatibleStateImageBehavior = false;
-            this.lvCats.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvCats_MouseDoubleClick);
+            this.lvCats.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvCats_Click);
             this.lvCats.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_MouseUp);
             // 
             // btnRemoveCat

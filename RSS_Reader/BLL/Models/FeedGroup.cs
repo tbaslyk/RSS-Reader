@@ -39,6 +39,11 @@ namespace BLL.Models
             
         }
 
+        public void Remove(Feed feed)
+        {
+            Feeds.Remove(feed);
+        }
+
         public void AddRange(List<Feed> feeds)
         {
             Feeds = feeds;

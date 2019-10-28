@@ -14,10 +14,10 @@ namespace BLL
         public string Description { get; set; }
 
 
-        public Episode(int episodeNumber, string title, string description)
+        public Episode(int episodeNumber, string name, string description)
         {
             EpisodeNumber = episodeNumber;
-            Name = title;
+            Name = name;
             Description = description;
 
         }

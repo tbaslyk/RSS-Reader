@@ -136,6 +136,9 @@ namespace PL
             {
                 if (feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
                 {
+                    txtURL.Text = feed.Url;
+                    cmbCat.SelectedItem = feed.Category.Name;
+
                     foreach (Episode episode in feed.GetEpisodesByNew())
                     {
                         ListViewItem item = new ListViewItem(new[] { episode.EpisodeNumber.ToString(), episode.Name });
@@ -193,31 +196,52 @@ namespace PL
             txtCatName.Text = category;
         }
 
-        private void btnSaveCat_Click(object sender, EventArgs e)
+        private void btnEditCat_Click(object sender, EventArgs e)
         {
             var selectedCat = lvCats.SelectedItems[0].Text;
 
-            foreach (Category category in _CategoryGroup.GetAll())
+            Category catToChange = _CategoryGroup.GetAll().
+                Where((c) => c.Name.Equals(selectedCat)).
+                First();
+
+            catToChange.Name = txtCatName.Text;
+            UpdateCategoryListView();
+
+            List<Category> cat = _FeedGroup.GetAll().
+                Where((f) => f.Category.Name.Equals(selectedCat)).
+                Select((f) => f.Category).
+                ToList();
+
+            foreach(Category category in cat)
             {
-                if (category.Name.Equals(selectedCat))
-                {
-                    category.Name = txtCatName.Text;
-                    UpdateCategoryListView();
-                }
+                category.Name = txtCatName.Text;
             }
 
-            foreach (Feed feed in _FeedGroup.GetAll())
-            {
-                if (feed.Category.Name.Equals(selectedCat))
-                {
-                    feed.Category.Name = txtCatName.Text;
-
-                }
-            }
             UpdateFeedListView();
-
         }
 
+        private void btnEditPodcast_Click(object sender, EventArgs e)
+        {
+            var selectedFeedName = lvPodcasts.SelectedItems[0].SubItems[1].Text;
+
+            Feed feedToChange = _FeedGroup.GetAll().
+                Where((f) => f.Name.Equals(selectedFeedName)).
+                First();
+
+            _FeedGroup.Remove(feedToChange);
+
+            Category selectedCategory = _CategoryGroup.GetAll().
+                Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
+                First();
+
+            Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory);
+            _FeedGroup.Add(newFeed);
+
+            lblTitle.Text = "";
+            lblDesc.Text = "";
+            UpdateFeedListView();
+        }        
+        
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             FeedManager.SaveFeeds(_FeedGroup.GetAll());

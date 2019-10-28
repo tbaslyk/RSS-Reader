@@ -87,6 +87,7 @@
             this.btnSavePodcast.TabIndex = 2;
             this.btnSavePodcast.Text = "Ändra";
             this.btnSavePodcast.UseVisualStyleBackColor = true;
+            this.btnSavePodcast.Click += new System.EventHandler(this.btnEditPodcast_Click);
             // 
             // btnRemovePodcast
             // 
@@ -187,7 +188,7 @@
             this.btnSaveCat.TabIndex = 12;
             this.btnSaveCat.Text = "Ändra";
             this.btnSaveCat.UseVisualStyleBackColor = true;
-            this.btnSaveCat.Click += new System.EventHandler(this.btnSaveCat_Click);
+            this.btnSaveCat.Click += new System.EventHandler(this.btnEditCat_Click);
             // 
             // btnCreateCat
             // 

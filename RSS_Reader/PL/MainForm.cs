@@ -138,7 +138,7 @@ namespace PL
                 {
                     foreach (Episode episode in feed.GetEpisodesByNew())
                     {
-                        ListViewItem item = new ListViewItem(new[] { episode.EpisodeNumber.ToString(), episode.Title });
+                        ListViewItem item = new ListViewItem(new[] { episode.EpisodeNumber.ToString(), episode.Name });
                         lvEpisodes.Items.Add(item);
                     }
                     break;
@@ -156,7 +156,7 @@ namespace PL
                     {
                         if (episode.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text))
                         {
-                            lblTitle.Text = episode.Title;
+                            lblTitle.Text = episode.Name;
                             lblDesc.Text = episode.Description;
                         }
                     }

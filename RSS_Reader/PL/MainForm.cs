@@ -120,7 +120,6 @@ namespace PL
                     _FeedGroup.Add(feed);
 
                     ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
-
                     lvPodcasts.Items.Add(item);
                 }
             }
@@ -194,6 +193,18 @@ namespace PL
         {
             string category = lvCats.SelectedItems[0].Text;
             txtCatName.Text = category;
+
+            List<Feed> sortedFeeds = _FeedGroup.GetAll().
+                Where((f) => f.Category.Name.Equals(category)).
+                ToList();
+
+            lvPodcasts.Items.Clear();
+
+            foreach(Feed feed in sortedFeeds)
+            {
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+                lvPodcasts.Items.Add(item);
+            }
         }
 
         private void btnEditCat_Click(object sender, EventArgs e)
@@ -239,6 +250,7 @@ namespace PL
 
             lblTitle.Text = "";
             lblDesc.Text = "";
+            lvEpisodes.Items.Clear();
             UpdateFeedListView();
         }        
         

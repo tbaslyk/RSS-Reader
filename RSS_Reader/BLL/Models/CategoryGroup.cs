@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class CategoryGroup
+    public class CategoryGroup : IGroup<Category>
     {
 
         public List<Category> Categories { get; set; }
@@ -26,7 +27,7 @@ namespace BLL.Models
             Categories = categories;
         }
 
-        public List<Category> GetAllCategories()
+        public List<Category> GetAll()
         {
             return Categories;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class FeedGroup
+    public class FeedGroup : IGroup<Feed>
     {
         public List<Feed> Feeds { get; private set; }
 
@@ -52,7 +53,7 @@ namespace BLL.Models
             return sortedFeeds;
         }
 
-        public List<Feed> GetAllFeeds()
+        public List<Feed> GetAll()
         {
             return Feeds;
         }

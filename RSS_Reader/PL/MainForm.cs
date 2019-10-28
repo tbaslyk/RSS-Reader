@@ -78,7 +78,7 @@ namespace PL
         {
             lvCats.Items.Clear();
 
-            foreach (Category category in _CategoryGroup.GetAllCategories())
+            foreach (Category category in _CategoryGroup.GetAll())
             {
                 lvCats.Items.Add(category.Name);
                 cmbCat.Items.Add(category.Name);
@@ -89,7 +89,7 @@ namespace PL
         {
             lvPodcasts.Items.Clear();
 
-            foreach (Feed feed in _FeedGroup.GetAllFeeds())
+            foreach (Feed feed in _FeedGroup.GetAll())
             {
                 ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
 
@@ -112,7 +112,7 @@ namespace PL
         {
             string selectedCategory = (string) cmbCat.SelectedItem;
 
-            foreach (Category category in _CategoryGroup.GetAllCategories())
+            foreach (Category category in _CategoryGroup.GetAll())
             {
                 if (category.Name.Equals(selectedCategory))
                 {
@@ -197,7 +197,7 @@ namespace PL
         {
             var selectedCat = lvCats.SelectedItems[0].Text;
 
-            foreach (Category category in _CategoryGroup.GetAllCategories())
+            foreach (Category category in _CategoryGroup.GetAll())
             {
                 if (category.Name.Equals(selectedCat))
                 {
@@ -206,7 +206,7 @@ namespace PL
                 }
             }
 
-            foreach (Feed feed in _FeedGroup.GetAllFeeds())
+            foreach (Feed feed in _FeedGroup.GetAll())
             {
                 if (feed.Category.Name.Equals(selectedCat))
                 {
@@ -220,8 +220,8 @@ namespace PL
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            FeedManager.SaveFeeds(_FeedGroup.GetAllFeeds());
-            CategoryManager.SaveCategories(_CategoryGroup.GetAllCategories());
+            FeedManager.SaveFeeds(_FeedGroup.GetAll());
+            CategoryManager.SaveCategories(_CategoryGroup.GetAll());
         }
     }
 }

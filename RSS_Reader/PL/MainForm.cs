@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using BLL;
 using BLL.Models;
 using BLL.Services;
+using BLL.Validation;
 
 namespace PL
 {
@@ -117,19 +118,31 @@ namespace PL
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            string selectedCategory = (string) cmbCat.SelectedItem;
-
-            foreach (Category category in _CategoryGroup.GetAll())
+            if (Validation.checkIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
             {
-                if (category.Name.Equals(selectedCategory))
-                {
-                    var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
-                    _FeedGroup.Add(feed);
 
-                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
-                    lvPodcasts.Items.Add(item);
-                    UpdateFrequencyManager.start(feed);
+
+                string selectedCategory = (string)cmbCat.SelectedItem;
+
+                foreach (Category category in _CategoryGroup.GetAll())
+                {
+                    if (category.Name.Equals(selectedCategory))
+                    {
+
+
+                        var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
+                        _FeedGroup.Add(feed);
+                        ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
+                        lvPodcasts.Items.Add(item);
+                        UpdateFrequencyManager.start(feed);
+                    }
                 }
+
+            }
+
+            else
+            {
+                MessageBox.Show("Feeden finns redan");
             }
         }
 
@@ -178,12 +191,22 @@ namespace PL
 
         private void btnCreateCat_Click(object sender, EventArgs e)
         {
-            Category newCategory = new Category(txtCatName.Text);
+            
+                       
+            if(Validation.checkIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
+            {
+                Category newCategory = new Category(txtCatName.Text);
 
-            _CategoryGroup.Add(newCategory);
-            cmbCat.Items.Add(newCategory.Name);
+                _CategoryGroup.Add(newCategory);
+                cmbCat.Items.Add(newCategory.Name);
 
-            lvCats.Items.Add(newCategory.Name);
+                lvCats.Items.Add(newCategory.Name);
+            }
+
+            else
+            {
+                MessageBox.Show("Kategorin finns redan");
+            }
         }
 
         private void btnRemovePodcast_Click(object sender, EventArgs e)

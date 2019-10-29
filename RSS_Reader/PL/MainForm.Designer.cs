@@ -241,9 +241,9 @@
             this.label6.Location = new System.Drawing.Point(228, 69);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 17);
+            this.label6.Size = new System.Drawing.Size(127, 17);
             this.label6.TabIndex = 18;
-            this.label6.Text = "Uppdatera...";
+            this.label6.Text = "Frekvens (minuter)";
             // 
             // label7
             // 

@@ -35,10 +35,12 @@ namespace PL
 
         private void IntializeColumns()
         {
+
+
             lvPodcasts.Columns.Add("Antal", -2);
-            lvPodcasts.Columns.Add("Namn", -1);
-            lvPodcasts.Columns.Add("Frekvens", -1);
-            lvPodcasts.Columns.Add("Kategori", -1);
+            lvPodcasts.Columns.Add("Namn", -2);
+            lvPodcasts.Columns.Add("Frekvens", -2);
+            lvPodcasts.Columns.Add("Kategori", -2);
             lvPodcasts.View = View.Details;
             lvPodcasts.FullRowSelect = true;
             lvPodcasts.MultiSelect = false;
@@ -49,7 +51,7 @@ namespace PL
             lvEpisodes.FullRowSelect = true;
             lvEpisodes.MultiSelect = false;
 
-            lvCats.Columns.Add("Namn", -1);
+            lvCats.Columns.Add("Namn", -2);
             lvCats.View = View.Details;
             lvCats.MultiSelect = false;
         }
@@ -87,7 +89,7 @@ namespace PL
             lvCats.Items.Clear();
             lvCats.Items.Add("Alla");
 
-            foreach (Category category in _CategoryGroup.GetAll())
+            foreach (Category category in _CategoryGroup.GetSortedCategories())
             {
                 lvCats.Items.Add(category.Name);
                 cmbCat.Items.Add(category.Name);
@@ -150,6 +152,7 @@ namespace PL
                             ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
                             lvPodcasts.Items.Add(item);
                             UpdateFrequencyManager.start(feed);
+                            UpdateFeedListView();
                             }
 
                             else
@@ -233,6 +236,7 @@ namespace PL
                     cmbCat.Items.Add(newCategory.Name);
 
                     lvCats.Items.Add(newCategory.Name);
+                    UpdateCategoryListView();
                 }
 
                 else

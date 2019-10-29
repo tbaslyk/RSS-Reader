@@ -45,6 +45,15 @@ namespace BLL.Models
 
         }
 
+        public List<Category> GetSortedCategories()
+        {
+            List<Category> sortedCats = Categories
+                .OrderBy((f) => f.Name)
+                .ToList();
+
+            return sortedCats;
+        }
+
 
     }
 }

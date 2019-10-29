@@ -78,8 +78,8 @@ namespace PL
             if (categories != null)
             {
                 _CategoryGroup.AddRange(categories);
-                UpdateCategoryListView();
             }
+            UpdateCategoryListView();
         }
 
         private void UpdateCategoryListView()

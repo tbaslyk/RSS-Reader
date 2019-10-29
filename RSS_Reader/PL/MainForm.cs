@@ -97,7 +97,6 @@ namespace PL
             if (_CategoryGroup.GetAll().Any())
             {
                 cmbCat.SelectedIndex = 0;
-                cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             
         }
@@ -399,6 +398,7 @@ namespace PL
             comboBox2.SelectedIndex = 0;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
 
         }
 

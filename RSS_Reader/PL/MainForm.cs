@@ -85,6 +85,7 @@ namespace PL
         private void UpdateCategoryListView()
         {
             lvCats.Items.Clear();
+            lvCats.Items.Add("Alla");
 
             foreach (Category category in _CategoryGroup.GetAll())
             {
@@ -97,7 +98,7 @@ namespace PL
         {
             lvPodcasts.Items.Clear();
 
-            foreach (Feed feed in _FeedGroup.GetAll())
+            foreach (Feed feed in _FeedGroup.GetSortedFeeds())
             {
                 ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
 
@@ -224,18 +225,26 @@ namespace PL
         private void lvCats_Click(object sender, MouseEventArgs e)
         {
             string category = lvCats.SelectedItems[0].Text;
-            txtCatName.Text = category;
 
-            List<Feed> sortedFeeds = _FeedGroup.GetAll().
-                Where((f) => f.Category.Name.Equals(category)).
-                ToList();
-
-            lvPodcasts.Items.Clear();
-
-            foreach(Feed feed in sortedFeeds)
+            if (category.Equals("Alla"))
             {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
-                lvPodcasts.Items.Add(item);
+                UpdateFeedListView();
+            }
+            else
+            {
+                txtCatName.Text = category;
+
+                List<Feed> sortedFeeds = _FeedGroup.GetSortedFeeds().
+                    Where((f) => f.Category.Name.Equals(category)).
+                    ToList();
+
+                lvPodcasts.Items.Clear();
+
+                foreach (Feed feed in sortedFeeds)
+                {
+                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
+                    lvPodcasts.Items.Add(item);
+                }
             }
         }
 
@@ -250,7 +259,7 @@ namespace PL
             catToChange.Name = txtCatName.Text;
             UpdateCategoryListView();
 
-            List<Category> cat = _FeedGroup.GetAll().
+            List<Category> cat = _FeedGroup.GetSortedFeeds().
                 Where((f) => f.Category.Name.Equals(selectedCat)).
                 Select((f) => f.Category).
                 ToList();

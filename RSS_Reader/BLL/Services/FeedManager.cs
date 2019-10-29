@@ -32,12 +32,12 @@ namespace BLL
         {
             SyndicationFeed feed = RSSReader.Reader(url);
             List<Episode> episodes = new List<Episode>();
-            int episodeCounter = 1;
+            int episodeCounter = feed.Items.ToList().Count;
 
             foreach (var item in feed.Items.ToList())
             {
                 episodes.Add(new Episode(episodeCounter, item.Title.Text, item.Summary.Text));
-                episodeCounter++;
+                episodeCounter--;
             }
 
             return episodes;

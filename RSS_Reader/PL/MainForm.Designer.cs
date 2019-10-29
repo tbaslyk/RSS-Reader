@@ -75,6 +75,7 @@
             this.lvPodcasts.Size = new System.Drawing.Size(456, 201);
             this.lvPodcasts.TabIndex = 1;
             this.lvPodcasts.UseCompatibleStateImageBehavior = false;
+            this.lvPodcasts.SelectedIndexChanged += new System.EventHandler(this.lvPodcasts_SelectedIndexChanged);
             this.lvPodcasts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvPodcasts_Click);
             this.lvPodcasts.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lv_MouseUp);
             // 

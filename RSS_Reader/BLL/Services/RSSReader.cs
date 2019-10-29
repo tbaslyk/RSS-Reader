@@ -14,11 +14,24 @@ namespace BLL
         public static SyndicationFeed Reader(string url)
         {
             SyndicationFeed feed = null;
-
-            using (XmlReader xr = XmlReader.Create(url))
+            try
             {
-                feed = SyndicationFeed.Load(xr);
+                
+
+                using (XmlReader xr = XmlReader.Create(url))
+                {
+                    feed = SyndicationFeed.Load(xr);
+                }
             }
+                
+            
+            
+            catch (Exception e)
+            {
+
+                
+            }
+            
 
             return feed;
         }

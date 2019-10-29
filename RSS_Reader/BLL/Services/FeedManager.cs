@@ -7,6 +7,7 @@ using System.Xml;
 using System.ServiceModel.Syndication;
 using DAL;
 using BLL.Models;
+using BLL.Validation;
 
 namespace BLL
 {
@@ -25,32 +26,52 @@ namespace BLL
         private static string GetTitle(string url)
         {
             SyndicationFeed feed = RSSReader.Reader(url);
-            return feed.Title.Text;
+
+            if (Validation.Validation.isSyndFeedNull(feed))
+            {
+
+
+                return feed.Title.Text;
+
+            }
+            return null;
         }
 
         public static List<Episode> GetEpisodes(string url)
         {
             SyndicationFeed feed = RSSReader.Reader(url);
             List<Episode> episodes = new List<Episode>();
-            int episodeCounter = feed.Items.ToList().Count;
-
-            foreach (var item in feed.Items.ToList())
+            if (Validation.Validation.isSyndFeedNull(feed))
             {
-                episodes.Add(new Episode(episodeCounter, item.Title.Text, item.Summary.Text));
-                episodeCounter--;
-            }
+                
+                int episodeCounter = feed.Items.ToList().Count;
 
+                foreach (var item in feed.Items.ToList())
+                {
+                    episodes.Add(new Episode(episodeCounter, item.Title.Text, item.Summary.Text));
+                    episodeCounter--;
+                }
+
+            }
             return episodes;
+                
         }
 
         public static Feed CreateFeed(string url, Category category, UpdateFrequency updatef)
         {
-            int number = GetEpisodes(url).Count();
+
             string name = GetTitle(url);
+
+            if (name != null)
+            {
+            int number = GetEpisodes(url).Count();
             List<Episode> episodes = GetEpisodes(url);
-
-
             return new Feed(name, number, episodes, category, url, updatef);
+            }
+
+
+
+            return null;
         }
     }
 }

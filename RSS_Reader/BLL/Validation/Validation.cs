@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel.Syndication;
 
 
 namespace BLL.Validation
@@ -89,6 +90,17 @@ namespace BLL.Validation
 
 
             return !tested;
+        }
+
+        public static bool isSyndFeedNull(SyndicationFeed feed)
+        {
+
+            if (feed == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
 

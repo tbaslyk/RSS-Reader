@@ -144,10 +144,19 @@ namespace PL
 
 
                             var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
+                            if (feed != null)
+                            {
                             _FeedGroup.Add(feed);
                             ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
                             lvPodcasts.Items.Add(item);
                             UpdateFrequencyManager.start(feed);
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Ogiltig URL");
+                            }
+                            
                         }
                     }
 

@@ -55,7 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RSSReader.cs" />
     <Compile Include="Services\UpdateFrequencyManager.cs" />
-    <Compile Include="Validation\Validate.cs" />
+    <Compile Include="Validation\Validation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">

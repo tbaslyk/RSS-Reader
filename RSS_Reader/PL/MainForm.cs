@@ -88,6 +88,7 @@ namespace PL
         {
             lvCats.Items.Clear();
             lvCats.Items.Add("Alla");
+            cmbCat.Items.Clear();
 
             foreach (Category category in _CategoryGroup.GetSortedCategories())
             {
@@ -233,9 +234,6 @@ namespace PL
                     Category newCategory = new Category(txtCatName.Text);
 
                     _CategoryGroup.Add(newCategory);
-                    cmbCat.Items.Add(newCategory.Name);
-
-                    lvCats.Items.Add(newCategory.Name);
                     UpdateCategoryListView();
                 }
 

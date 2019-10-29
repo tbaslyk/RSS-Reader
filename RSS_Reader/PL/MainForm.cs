@@ -91,7 +91,14 @@ namespace PL
             {
                 lvCats.Items.Add(category.Name);
                 cmbCat.Items.Add(category.Name);
+                
             }
+
+            if (_CategoryGroup.GetAll().Any())
+            {
+                cmbCat.SelectedIndex = 0;
+            }
+            cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void UpdateFeedListView()
@@ -123,20 +130,32 @@ namespace PL
             {
 
 
+                
                 string selectedCategory = (string)cmbCat.SelectedItem;
-
-                foreach (Category category in _CategoryGroup.GetAll())
+                if (Validation.allFieldsFilled(txtURL.Text))
                 {
-                    if (category.Name.Equals(selectedCategory))
+
+
+
+                    foreach (Category category in _CategoryGroup.GetAll())
                     {
+                        if (category.Name.Equals(selectedCategory))
+                        {
 
 
-                        var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
-                        _FeedGroup.Add(feed);
-                        ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
-                        lvPodcasts.Items.Add(item);
-                        UpdateFrequencyManager.start(feed);
+                            var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
+                            _FeedGroup.Add(feed);
+                            ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
+                            lvPodcasts.Items.Add(item);
+                            UpdateFrequencyManager.start(feed);
+                        }
                     }
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Fyll i alla fälten korrekt");
                 }
 
             }
@@ -270,49 +289,78 @@ namespace PL
 
         private void btnEditCat_Click(object sender, EventArgs e)
         {
-            var selectedCat = lvCats.SelectedItems[0].Text;
-            
-            Category catToChange = _CategoryGroup.GetAll().
-                Where((c) => c.Name.Equals(selectedCat)).
-                First();
-
-            catToChange.Name = txtCatName.Text;
-            UpdateCategoryListView();
-
-            List<Category> cat = _FeedGroup.GetSortedFeeds().
-                Where((f) => f.Category.Name.Equals(selectedCat)).
-                Select((f) => f.Category).
-                ToList();
-
-            foreach(Category category in cat)
+            if (Validation.allFieldsFilledCategory(txtCatName.Text))
             {
-                category.Name = txtCatName.Text;
+                if (Validation.checkIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
+                {
+                    var selectedCat = lvCats.SelectedItems[0].Text;
+
+                    Category catToChange = _CategoryGroup.GetAll().
+                    Where((c) => c.Name.Equals(selectedCat)).
+                    First();
+
+                    catToChange.Name = txtCatName.Text;
+                    UpdateCategoryListView();
+
+                    List<Category> cat = _FeedGroup.GetSortedFeeds().
+                        Where((f) => f.Category.Name.Equals(selectedCat)).
+                        Select((f) => f.Category).
+                        ToList();
+
+                    foreach (Category category in cat)
+                    {
+                        category.Name = txtCatName.Text;
+                    }
+
+                    UpdateFeedListView();
+                }
+
+                else
+                {
+                    MessageBox.Show("Kategorin finns redan");
+                }
             }
 
-            UpdateFeedListView();
+            else
+            {
+                MessageBox.Show("Ange Kategorin på ett korrekt sätt");
+            }
+
         }
 
         private void btnEditPodcast_Click(object sender, EventArgs e)
         {
-            var selectedFeedName = lvPodcasts.SelectedItems[0].SubItems[1].Text;
 
-            Feed feedToChange = _FeedGroup.GetAll().
-                Where((f) => f.Name.Equals(selectedFeedName)).
-                First();
+            if (Validation.isAlla(txtURL.Text))
+            {
 
-            _FeedGroup.Remove(feedToChange);
 
-            Category selectedCategory = _CategoryGroup.GetAll().
-                Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
-                First();
+                var selectedFeedName = lvPodcasts.SelectedItems[0].SubItems[1].Text;
 
-            Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory,new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
-            _FeedGroup.Add(newFeed);
+                Feed feedToChange = _FeedGroup.GetAll().
+                    Where((f) => f.Name.Equals(selectedFeedName)).
+                    First();
 
-            lblTitle.Text = "";
-            lblDesc.Text = "";
-            lvEpisodes.Items.Clear();
-            UpdateFeedListView();
+                _FeedGroup.Remove(feedToChange);
+
+                Category selectedCategory = _CategoryGroup.GetAll().
+                    Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
+                    First();
+
+                Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
+                _FeedGroup.Add(newFeed);
+
+                lblTitle.Text = "";
+                lblDesc.Text = "";
+                lvEpisodes.Items.Clear();
+                UpdateFeedListView();
+
+            }
+
+            else
+            {
+                MessageBox.Show("Fyll i alla fälten korrekt");
+            }
         }        
         
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -323,12 +371,14 @@ namespace PL
 
         private void populateComboBox()
         {
-            cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            
             comboBox2.Items.Add(new UpdateFrequency(1).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(5).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(10).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(15).Minutes);
+            comboBox2.SelectedIndex = 0;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+
 
         }
     }

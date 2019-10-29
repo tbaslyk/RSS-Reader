@@ -52,11 +52,21 @@ namespace BLL.Validation
             foreach (var item in list)
             {
 
-                if(item.Category.Name.Equals(categoryName))
+                if(item.Category.Name.ToLower().Equals(categoryName.ToLower()))
                 {
                     return false;
                 }
 
+            }
+
+            return true;
+        }
+
+        public static bool allFieldsFilled(string url)
+        {
+            if(url.Contains(" ") || url.Equals(""))
+            {
+                return false;
             }
 
             return true;
@@ -73,7 +83,15 @@ namespace BLL.Validation
             return true;
         }
 
-        
+        public static bool allFieldsFilledCategory(string url)
+        {
+            bool tested = String.IsNullOrWhiteSpace(url);
+
+
+            return !tested;
+        }
+
+
 
     }
 }

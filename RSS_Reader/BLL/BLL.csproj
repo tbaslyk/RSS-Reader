@@ -47,6 +47,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryGroup.cs" />
     <Compile Include="Models\Feed.cs" />
+    <Compile Include="Models\UpdateFrequency.cs" />
     <Compile Include="Services\CategoryManager.cs" />
     <Compile Include="Services\FeedManager.cs" />
     <Compile Include="Models\Episode.cs" />

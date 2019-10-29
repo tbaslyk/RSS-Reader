@@ -23,6 +23,7 @@ namespace PL
         {
             InitializeComponent();
             IntializeColumns();
+            populateComboBox();
 
             _FeedGroup = new FeedGroup();
             _CategoryGroup = new CategoryGroup();
@@ -91,7 +92,7 @@ namespace PL
 
             foreach (Feed feed in _FeedGroup.GetAll())
             {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
 
                 lvPodcasts.Items.Add(item);
             }
@@ -116,10 +117,10 @@ namespace PL
             {
                 if (category.Name.Equals(selectedCategory))
                 {
-                    var feed = FeedManager.CreateFeed(txtURL.Text, category);
+                    var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
                     _FeedGroup.Add(feed);
 
-                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+                    ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
                     lvPodcasts.Items.Add(item);
                 }
             }
@@ -245,7 +246,7 @@ namespace PL
                 Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
                 First();
 
-            Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory);
+            Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory,new UpdateFrequency(Int32.Parse(comboBox2.SelectedItem.ToString())));
             _FeedGroup.Add(newFeed);
 
             lblTitle.Text = "";
@@ -258,6 +259,14 @@ namespace PL
         {
             FeedManager.SaveFeeds(_FeedGroup.GetAll());
             CategoryManager.SaveCategories(_CategoryGroup.GetAll());
+        }
+
+        private void populateComboBox()
+        {
+            comboBox2.Items.Add(new UpdateFrequency(5).Minutes);
+            comboBox2.Items.Add(new UpdateFrequency(10).Minutes);
+            comboBox2.Items.Add(new UpdateFrequency(15).Minutes);
+
         }
     }
 }

@@ -43,13 +43,14 @@ namespace BLL
             return episodes;
         }
 
-        public static Feed CreateFeed(string url, Category category)
+        public static Feed CreateFeed(string url, Category category, UpdateFrequency updatef)
         {
             int number = GetEpisodes(url).Count();
             string name = GetTitle(url);
             List<Episode> episodes = GetEpisodes(url);
 
-            return new Feed(name, number, episodes, category, url);
+
+            return new Feed(name, number, episodes, category, url, updatef);
         }
     }
 }

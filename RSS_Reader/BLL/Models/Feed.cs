@@ -17,13 +17,16 @@ namespace BLL
         public Category Category { get; set; }
         public string Url { get; set; }
 
-        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url)
+        public UpdateFrequency Updatef { get; set; }
+
+        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url, UpdateFrequency updatef)
         {
             Name = podcastName;
             NumberOfEpisodes = numberOfEpisodes;
             Episodes = episodes;
             Category = category;
             Url = url;
+            Updatef = updatef;
             
         }
 

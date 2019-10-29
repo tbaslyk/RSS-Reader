@@ -61,7 +61,13 @@ namespace PL
             {
                 _FeedGroup.AddRange(feeds);
                 UpdateFeedListView();
+                foreach (Feed item in feeds)
+                {
+                    UpdateFrequencyManager.start(item);
+                }
             }
+
+            
         }
 
         private void LoadAllCategories()
@@ -122,6 +128,7 @@ namespace PL
 
                     ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
                     lvPodcasts.Items.Add(item);
+                    UpdateFrequencyManager.start(feed);
                 }
             }
         }
@@ -148,6 +155,7 @@ namespace PL
                 }
             }
         }
+
 
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
@@ -203,7 +211,7 @@ namespace PL
 
             foreach(Feed feed in sortedFeeds)
             {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, "temp", feed.Category.Name });
+                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Updatef.Minutes.ToString(), feed.Category.Name });
                 lvPodcasts.Items.Add(item);
             }
         }
@@ -263,6 +271,7 @@ namespace PL
 
         private void populateComboBox()
         {
+            comboBox2.Items.Add(new UpdateFrequency(1).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(5).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(10).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(15).Minutes);

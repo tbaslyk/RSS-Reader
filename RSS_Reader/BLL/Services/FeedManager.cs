@@ -28,7 +28,7 @@ namespace BLL
             return feed.Title.Text;
         }
 
-        private static List<Episode> GetEpisodes(string url)
+        public static List<Episode> GetEpisodes(string url)
         {
             SyndicationFeed feed = RSSReader.Reader(url);
             List<Episode> episodes = new List<Episode>();

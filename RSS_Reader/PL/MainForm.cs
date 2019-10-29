@@ -148,7 +148,7 @@ namespace PL
         {
             if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
             {
-                string selectedCategory = (string) cmbCat.SelectedItem;
+                string selectedCategory = (string)cmbCat.SelectedItem;
 
                 if (Validator.AllFieldsFilled(txtURL.Text))
                 {
@@ -207,21 +207,16 @@ namespace PL
 
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
-            foreach (Feed feed in _FeedGroup.GetSortedFeeds())
-            {
-                if (feed.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text))
-                {
-                    foreach (Episode episode in feed.Episodes)
-                    {
-                        if (episode.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text))
-                        {
-                            lblTitle.Text = episode.Name;
-                            lblDesc.Text = episode.Description;
-                        }
-                    }
-                    break;
-                }
-            }
+            Feed selectedFeed = _FeedGroup.GetSortedFeeds().
+                Where((f) => f.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text)).
+                First();
+
+            Episode selectedEpisode = selectedFeed.Episodes.
+                Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
+                First();
+
+            lblTitle.Text = selectedEpisode.Name;
+            lblDesc.Text = selectedEpisode.Description;
         }
 
         private void btnCreateCat_Click(object sender, EventArgs e)
@@ -243,7 +238,7 @@ namespace PL
 
         private void btnRemovePodcast_Click(object sender, EventArgs e)
         {
-            if (lvPodcasts.SelectedItems.Count > 0)
+            if (Validator.IsListViewItemSelected(lvPodcasts))
             {
                 _FeedGroup.Remove(lvPodcasts.SelectedItems[0].SubItems[1].Text);
                 lvPodcasts.SelectedItems[0].Remove();
@@ -252,7 +247,7 @@ namespace PL
 
         private void btnRemoveCat_Click(object sender, EventArgs e)
         {
-            if (lvCats.SelectedItems.Count > 0)
+            if (Validator.IsListViewItemSelected(lvPodcasts))
             {
                 string text = lvCats.SelectedItems[0].Text;
 
@@ -260,7 +255,7 @@ namespace PL
                 {
                     if (Validator.AllowedToDeleteCategory(text, _FeedGroup.GetAll()))
                     {
-                        _CategoryGroup.Remove(lvCats.SelectedItems[0].Text);
+                        _CategoryGroup.Remove(text);
                         lvCats.SelectedItems[0].Remove();
                         cmbCat.Items.Remove(text);
                     }
@@ -304,7 +299,7 @@ namespace PL
 
         private void btnEditCat_Click(object sender, EventArgs e)
         {
-            if (lvCats.SelectedItems.Count > 0)
+            if (Validator.IsListViewItemSelected(lvCats))
             {
                 if (Validator.AllFieldsFilledCategory(txtCatName.Text))
                 {
@@ -344,7 +339,7 @@ namespace PL
 
         private void btnEditPodcast_Click(object sender, EventArgs e)
         {
-            if (lvPodcasts.SelectedItems.Count > 0)
+            if (Validator.IsListViewItemSelected(lvPodcasts))
             {
                 if (Validator.IsAlla(txtURL.Text))
                 {

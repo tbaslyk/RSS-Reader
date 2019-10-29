@@ -41,7 +41,6 @@ namespace BLL.Models
             {
                 Categories.Remove(item);
             }
-
         }
 
         public List<Category> GetSortedCategories()

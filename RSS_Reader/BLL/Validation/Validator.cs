@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel.Syndication;
-
+using System.Windows.Forms;
 
 namespace BLL.Validation
 {
@@ -69,6 +69,15 @@ namespace BLL.Validation
         {
             bool tested = String.IsNullOrWhiteSpace(url);
             return !tested;
+        }
+
+        public static bool IsListViewItemSelected(ListView lv)
+        {
+            if(lv.SelectedItems.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public static bool IsNotNull(object anObject)

@@ -218,8 +218,28 @@ namespace PL
 
         private void btnRemoveCat_Click(object sender, EventArgs e)
         {
-            _CategoryGroup.Remove(lvCats.SelectedItems[0].Text);
-            lvCats.SelectedItems[0].Remove();
+
+            string text = lvCats.SelectedItems[0].Text;
+
+            if (Validation.isAlla(text))
+            {
+
+                if (Validation.allowedToDeleteCategory(text, _FeedGroup.GetAll()))
+                {
+                    _CategoryGroup.Remove(lvCats.SelectedItems[0].Text);
+                    lvCats.SelectedItems[0].Remove();
+                    cmbCat.Items.Remove(text);
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Du kan inte ta bort en Kategori som används av en Feed");
+                }
+            }
+
+            
+            
         }
 
         private void lvCats_Click(object sender, MouseEventArgs e)
@@ -251,7 +271,7 @@ namespace PL
         private void btnEditCat_Click(object sender, EventArgs e)
         {
             var selectedCat = lvCats.SelectedItems[0].Text;
-
+            
             Category catToChange = _CategoryGroup.GetAll().
                 Where((c) => c.Name.Equals(selectedCat)).
                 First();

@@ -36,7 +36,7 @@ namespace BLL.Validation
 
             foreach (var item in list)
             {
-                if(categoryName.ToLower().Equals(item.Name.ToLower()))
+                if(categoryName.ToLower().Equals(item.Name.ToLower()) || categoryName.ToLower().Equals("alla"))
                 {
 
                     return false;
@@ -57,6 +57,17 @@ namespace BLL.Validation
                     return false;
                 }
 
+            }
+
+            return true;
+        }
+
+        public static bool isAlla(string fieldName)
+        {
+
+            if (fieldName.Equals("Alla"))
+            {
+                return false;
             }
 
             return true;

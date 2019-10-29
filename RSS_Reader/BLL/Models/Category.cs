@@ -7,9 +7,23 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class Category : IEntity
+    public class Category : Entity
     {
-        public string Name { get; set; }
+
+        private string name;
+        public override string Name {
+            get {
+
+                return name;
+            } 
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    name = value;
+                }
+            }
+        }
         public Category(string name)
         {
             Name = name;

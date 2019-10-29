@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IGroup.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryGroup.cs" />
+    <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\UpdateFrequency.cs" />
     <Compile Include="Services\CategoryManager.cs" />

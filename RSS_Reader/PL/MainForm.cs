@@ -97,8 +97,9 @@ namespace PL
             if (_CategoryGroup.GetAll().Any())
             {
                 cmbCat.SelectedIndex = 0;
+                cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
             }
-            cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
+            
         }
 
         private void UpdateFeedListView()

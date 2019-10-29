@@ -294,6 +294,8 @@ namespace PL
 
         private void populateComboBox()
         {
+            cmbCat.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.Items.Add(new UpdateFrequency(1).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(5).Minutes);
             comboBox2.Items.Add(new UpdateFrequency(10).Minutes);

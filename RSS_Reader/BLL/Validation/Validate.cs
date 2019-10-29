@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+
 
 namespace BLL.Validation
 {
@@ -45,6 +45,24 @@ namespace BLL.Validation
 
             return true;
         }
+
+        public static bool allowedToDeleteCategory(string categoryName, List<Feed> list)
+        {
+
+            foreach (var item in list)
+            {
+
+                if(item.Category.Name.Equals(categoryName))
+                {
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+        
 
     }
 }

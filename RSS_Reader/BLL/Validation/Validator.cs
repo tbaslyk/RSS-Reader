@@ -9,101 +9,75 @@ using System.ServiceModel.Syndication;
 
 namespace BLL.Validation
 {
-    public static class Validation
+    public static class Validator
     {
-
-
-
-        public static bool checkIfFeedExists(string url, List<Feed> feeds)
+        public static bool CheckIfFeedExists(string url, List<Feed> feeds)
         {
-
-            
             foreach (var item in feeds)
             {
-                if(url.ToLower().Equals(item.Url.ToLower()))
+                if (url.ToLower().Equals(item.Url.ToLower()))
                 {
-
-                    return false;                    
-                   
+                    return false;
                 }               
             }
-
             return true;
         }
 
-        public static bool checkIfCategoryExists(string categoryName, List<Category> list)
+        public static bool CheckIfCategoryExists(string categoryName, List<Category> list)
         {
-
-
             foreach (var item in list)
             {
-                if(categoryName.ToLower().Equals(item.Name.ToLower()) || categoryName.ToLower().Equals("alla"))
-                {
-
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static bool allowedToDeleteCategory(string categoryName, List<Feed> list)
-        {
-
-            foreach (var item in list)
-            {
-
-                if(item.Category.Name.ToLower().Equals(categoryName.ToLower()))
+                if (categoryName.ToLower().Equals(item.Name.ToLower()) || categoryName.ToLower().Equals("alla"))
                 {
                     return false;
                 }
-
             }
-
             return true;
         }
 
-        public static bool allFieldsFilled(string url)
+        public static bool AllowedToDeleteCategory(string categoryName, List<Feed> list)
         {
-            if(url.Contains(" ") || url.Equals(""))
+            foreach (var item in list)
             {
-                return false;
+                if (item.Category.Name.ToLower().Equals(categoryName.ToLower()))
+                {
+                    return false;
+                }
             }
-
             return true;
         }
 
-        public static bool isAlla(string fieldName)
+        public static bool IsAlla(string fieldName)
         {
-
             if (fieldName.Equals("Alla"))
             {
                 return false;
             }
-
             return true;
         }
 
-        public static bool allFieldsFilledCategory(string url)
+        public static bool AllFieldsFilled(string url)
         {
-            bool tested = String.IsNullOrWhiteSpace(url);
-
-
-            return !tested;
-        }
-
-        public static bool isSyndFeedNull(SyndicationFeed feed)
-        {
-
-            if (feed == null)
+            if (url.Contains(" ") || url.Equals(""))
             {
                 return false;
             }
-
             return true;
         }
 
+        public static bool AllFieldsFilledCategory(string url)
+        {
+            bool tested = String.IsNullOrWhiteSpace(url);
+            return !tested;
+        }
 
-
+        public static bool IsNotNull(object anObject)
+        {
+            if (anObject == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

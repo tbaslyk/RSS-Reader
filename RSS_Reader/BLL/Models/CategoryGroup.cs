@@ -9,7 +9,6 @@ namespace BLL.Models
 {
     public class CategoryGroup : IGroup<Category>
     {
-
         public List<Category> Categories { get; set; }
 
         public CategoryGroup()
@@ -53,7 +52,5 @@ namespace BLL.Models
 
             return sortedCats;
         }
-
-
     }
 }

@@ -12,10 +12,8 @@ namespace DAL
 {
     public class Serializer
     {
-
         public static void Serialize<T>(T data, string path)
         {
-
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -30,7 +28,6 @@ namespace DAL
 
         public static T Deserialize<T>(string path)
         {
-
             if (File.Exists(path))
             {
                 using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read))

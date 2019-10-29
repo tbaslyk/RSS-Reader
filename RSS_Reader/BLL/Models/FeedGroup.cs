@@ -23,7 +23,6 @@ namespace BLL.Models
             {
                 Feeds.Add(feed);
             }
-            
         }
 
         public void Remove(string feedName)
@@ -36,7 +35,6 @@ namespace BLL.Models
             {
                 Feeds.Remove(item);
             }
-            
         }
 
         public void Remove(Feed feed)
@@ -62,6 +60,5 @@ namespace BLL.Models
         {
             return Feeds;
         }
-
     }
 }

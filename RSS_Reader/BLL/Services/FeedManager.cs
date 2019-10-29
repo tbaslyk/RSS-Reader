@@ -9,13 +9,13 @@ using DAL;
 using BLL.Models;
 using BLL.Validation;
 
-namespace BLL
+namespace BLL.Services
 {
     public static class FeedManager
     {
         public static List<Feed> LoadFeeds()
         {
-           return Serializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
+            return Serializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
         }
 
         public static void SaveFeeds(List<Feed> feeds)
@@ -27,13 +27,11 @@ namespace BLL
         {
             SyndicationFeed feed = RSSReader.Reader(url);
 
-            if (Validation.Validation.isSyndFeedNull(feed))
+            if (Validator.IsNotNull(feed))
             {
-
-
                 return feed.Title.Text;
-
             }
+
             return null;
         }
 
@@ -41,9 +39,9 @@ namespace BLL
         {
             SyndicationFeed feed = RSSReader.Reader(url);
             List<Episode> episodes = new List<Episode>();
-            if (Validation.Validation.isSyndFeedNull(feed))
+
+            if (Validator.IsNotNull(feed))
             {
-                
                 int episodeCounter = feed.Items.ToList().Count;
 
                 foreach (var item in feed.Items.ToList())
@@ -54,22 +52,18 @@ namespace BLL
 
             }
             return episodes;
-                
         }
 
-        public static Feed CreateFeed(string url, Category category, UpdateFrequency updatef)
+        public static Feed CreateFeed(string url, Category category, UpdateFrequency frequency)
         {
-
             string name = GetTitle(url);
 
-            if (name != null)
+            if (Validator.IsNotNull(name))
             {
-            int number = GetEpisodes(url).Count();
-            List<Episode> episodes = GetEpisodes(url);
-            return new Feed(name, number, episodes, category, url, updatef);
+                int number = GetEpisodes(url).Count();
+                List<Episode> episodes = GetEpisodes(url);
+                return new Feed(name, number, episodes, category, url, frequency);
             }
-
-
 
             return null;
         }

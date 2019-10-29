@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
-namespace BLL
+namespace BLL.Services
 {
     public static class RSSReader
     {

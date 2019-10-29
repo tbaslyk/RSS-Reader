@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BLL
+namespace BLL.Models
 {
     public class Feed : IEntity
     {
@@ -16,8 +16,7 @@ namespace BLL
         public List<Episode> Episodes { get; set; }
         public Category Category { get; set; }
         public string Url { get; set; }
-
-        public UpdateFrequency Updatef { get; set; }
+        public UpdateFrequency Frequency { get; set; }
 
         public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url, UpdateFrequency updatef)
         {
@@ -26,8 +25,7 @@ namespace BLL
             Episodes = episodes;
             Category = category;
             Url = url;
-            Updatef = updatef;
-            
+            Frequency = updatef;
         }
 
         public Feed()
@@ -42,7 +40,6 @@ namespace BLL
                 .ToList();
 
             return sortedEpisodes;
-        } 
-
+        }
     }
 }

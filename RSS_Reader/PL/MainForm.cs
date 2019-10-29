@@ -211,21 +211,26 @@ namespace PL
 
         private void btnCreateCat_Click(object sender, EventArgs e)
         {
-            
-                       
-            if(Validation.checkIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
+
+            if (Validation.allFieldsFilledCategory(txtCatName.Text))
             {
-                Category newCategory = new Category(txtCatName.Text);
 
-                _CategoryGroup.Add(newCategory);
-                cmbCat.Items.Add(newCategory.Name);
 
-                lvCats.Items.Add(newCategory.Name);
-            }
+                if (Validation.checkIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
+                {
+                    Category newCategory = new Category(txtCatName.Text);
 
-            else
-            {
-                MessageBox.Show("Kategorin finns redan");
+                    _CategoryGroup.Add(newCategory);
+                    cmbCat.Items.Add(newCategory.Name);
+
+                    lvCats.Items.Add(newCategory.Name);
+                }
+
+                else
+                {
+                    MessageBox.Show("Kategorin finns redan");
+                }
+
             }
         }
 

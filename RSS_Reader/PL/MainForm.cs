@@ -98,7 +98,7 @@ namespace PL
             foreach (Category category in _CategoryGroup.GetSortedCategories())
             {
                 lvCats.Items.Add(category.Name);
-                cmbCat.Items.Add(category.Name);
+                cmbCat.Items.Add(category);
             }
 
             if (_CategoryGroup.GetAll().Any())

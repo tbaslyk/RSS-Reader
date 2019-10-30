@@ -10,7 +10,7 @@ using System.Timers;
 
 namespace BLL.Services
 {
-    public static class UpdateFrequencyManager
+    public static class FrequencyTimer
     {
         public static void Start(Feed feed)
         {

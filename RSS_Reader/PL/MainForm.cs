@@ -18,7 +18,7 @@ namespace PL
         {
             InitializeComponent();
             IntializeColumns();
-            PopulateComboBox();
+            PopulateComboboxes();
 
             _FeedGroup = new FeedGroup();
             _CategoryGroup = new CategoryGroup();
@@ -59,7 +59,7 @@ namespace PL
                 UpdateFeedListView();
                 foreach (Feed feed in feeds)
                 {
-                    UpdateFrequencyManager.Start(feed);
+                    FrequencyTimer.Start(feed);
                 }
             }
         }
@@ -75,7 +75,7 @@ namespace PL
             UpdateCategoryListView();
         }
 
-        private void PopulateComboBox()
+        private void PopulateComboboxes()
         {
             cmbFreq.Items.Add(new UpdateFrequency(1).Minutes);
             cmbFreq.Items.Add(new UpdateFrequency(5).Minutes);
@@ -161,7 +161,7 @@ namespace PL
                             feed.Frequency.Minutes.ToString(),
                             feed.Category.Name });
                         lvPodcasts.Items.Add(item);
-                        UpdateFrequencyManager.Start(feed);
+                        FrequencyTimer.Start(feed);
                         UpdateFeedListView();
                     }
                     else
@@ -202,16 +202,19 @@ namespace PL
 
         private void lvEpisodes_Click(object sender, EventArgs e)
         {
-            Feed selectedFeed = _FeedGroup.GetSortedFeeds().
-                Where((f) => f.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text)).
-                First();
+            if (Validator.IsListViewItemSelected(lvPodcasts))
+            {
+                Feed selectedFeed = _FeedGroup.GetSortedFeeds().
+                    Where((f) => f.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text)).
+                    First();
 
-            Episode selectedEpisode = selectedFeed.Episodes.
-                Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
-                First();
+                Episode selectedEpisode = selectedFeed.Episodes.
+                    Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
+                    First();
 
-            lblTitle.Text = selectedEpisode.Name;
-            lblDesc.Text = selectedEpisode.Description;
+                lblTitle.Text = selectedEpisode.Name;
+                lblDesc.Text = selectedEpisode.Description;
+            }
         }
 
         private void btnCreateCat_Click(object sender, EventArgs e)
@@ -243,7 +246,7 @@ namespace PL
 
         private void btnRemoveCat_Click(object sender, EventArgs e)
         {
-            if (Validator.IsListViewItemSelected(lvPodcasts))
+            if (Validator.IsListViewItemSelected(lvCats))
             {
                 string text = lvCats.SelectedItems[0].Text;
 
@@ -257,7 +260,7 @@ namespace PL
                     }
                     else
                     {
-                        MessageBox.Show("Det går inte att ta bort en kategori som används av en feed");
+                        MessageBox.Show("Det går inte att ta bort en kategori som används");
                     }
                 }
             }
@@ -266,6 +269,7 @@ namespace PL
         private void lvCats_Click(object sender, MouseEventArgs e)
         {
             string category = lvCats.SelectedItems[0].Text;
+            ClearEpisodes();
 
             if (category.Equals("Alla"))
             {

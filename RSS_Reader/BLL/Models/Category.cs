@@ -9,7 +9,6 @@ namespace BLL.Models
 {
     public class Category : Entity
     {
-
         private string name;
         public override string Name {
             get {

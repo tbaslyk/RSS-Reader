@@ -19,16 +19,16 @@ namespace BLL.Services
 
             try
             {
-                using (XmlReader xr = XmlReader.Create(url))
-                {
-                    feed = SyndicationFeed.Load(xr);
-                }
+                XmlReader xr = XmlReader.Create(url);
+                feed = SyndicationFeed.Load(xr);
+                xr.Close();
+                return feed;
             }
             catch (Exception e)
             {
                 //Debug.WriteLine(e.StackTrace);
             }
-            return feed;
+            return null;
         }
     }
 }

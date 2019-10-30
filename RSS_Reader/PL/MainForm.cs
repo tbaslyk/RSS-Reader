@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PL
@@ -138,7 +139,7 @@ namespace PL
             }
         }
 
-        private void btnAddPodcast_Click(object sender, EventArgs e)
+        private async void btnAddPodcast_Click(object sender, EventArgs e)
         {
             if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
             {
@@ -150,7 +151,12 @@ namespace PL
                         Where((c) => c.Name.Equals(selectedCategory)).
                         First();
 
-                    var feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(int.Parse(cmbFreq.SelectedItem.ToString())));
+                    var time = int.Parse(cmbFreq.SelectedItem.ToString());
+
+                    Feed feed = null;
+
+                    Task taskA = Task.Run(() => feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(time)));
+                    await taskA;
 
                     if (Validator.IsNotNull(feed))
                     {
@@ -341,7 +347,7 @@ namespace PL
             }
         }
 
-        private void btnEditPodcast_Click(object sender, EventArgs e)
+        private async void btnEditPodcast_Click(object sender, EventArgs e)
         {
             if (Validator.IsListViewItemSelected(lvPodcasts))
             {
@@ -359,7 +365,14 @@ namespace PL
                         Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
                         First();
 
-                    Feed newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory, new UpdateFrequency(int.Parse(cmbFreq.SelectedItem.ToString())));
+                    var time = int.Parse(cmbFreq.SelectedItem.ToString());
+
+                    Feed newFeed = null;
+
+                    Task taskA = Task.Run(() => newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory, new UpdateFrequency(time)));
+                    await taskA;
+
+
                     _FeedGroup.Add(newFeed);
 
                     ClearEpisodes();

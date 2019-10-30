@@ -56,9 +56,9 @@ namespace BLL.Validation
             return true;
         }
 
-        public static bool AllFieldsFilled(string url)
+        public static bool AllFieldsFilled(string url, ComboBox cmb)
         {
-            if (url.Contains(" ") || url.Equals(""))
+            if (url.Contains(" ") || url.Equals("") || cmb.SelectedIndex == -1)
             {
                 return false;
             }

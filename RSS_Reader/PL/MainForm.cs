@@ -144,7 +144,7 @@ namespace PL
             {
                 string selectedCategory = (string)cmbCat.SelectedItem;
 
-                if (Validator.AllFieldsFilled(txtURL.Text))
+                if (Validator.AllFieldsFilled(txtURL.Text, cmbCat))
                 {
                     var category = _CategoryGroup.GetAll().
                         Where((c) => c.Name.Equals(selectedCategory)).

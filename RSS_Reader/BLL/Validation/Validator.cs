@@ -11,6 +11,26 @@ namespace BLL.Validation
 {
     public static class Validator
     {
+
+        public static bool tryParseComboBoxValue(ComboBox box, out string message)
+        {
+            message = "";
+            bool wentThrough = true;
+            try
+            {
+               var parsed = int.Parse(box.SelectedItem.ToString());
+            }
+            catch (FormatException e)
+            {
+
+                message = e.Message;
+                wentThrough = false;
+            }
+
+            return wentThrough;
+            
+
+        }
         public static bool CheckIfFeedExists(string url, List<Feed> feeds)
         {
             foreach (var item in feeds)

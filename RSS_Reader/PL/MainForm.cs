@@ -141,48 +141,59 @@ namespace PL
 
         private async void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
+            string message = "";
+            if (Validator.tryParseComboBoxValue(cmbFreq, out message))
             {
-                string selectedCategory = (string)cmbCat.SelectedItem;
 
-                if (Validator.AllFieldsFilled(txtURL.Text, cmbCat))
+
+                if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
                 {
-                    var category = _CategoryGroup.GetAll().
-                        Where((c) => c.Name.Equals(selectedCategory)).
-                        First();
+                    string selectedCategory = (string)cmbCat.SelectedItem;
 
-                    var time = int.Parse(cmbFreq.SelectedItem.ToString());
-
-                    Feed feed = null;
-
-                    Task taskA = Task.Run(() => feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(time)));
-                    await taskA;
-
-                    if (Validator.IsNotNull(feed))
+                    if (Validator.AllFieldsFilled(txtURL.Text, cmbCat))
                     {
-                        _FeedGroup.Add(feed);
-                        ListViewItem item = new ListViewItem(new[] {
+                        var category = _CategoryGroup.GetAll().
+                            Where((c) => c.Name.Equals(selectedCategory)).
+                            First();
+
+                        var time = int.Parse(cmbFreq.SelectedItem.ToString());
+
+                        Feed feed = null;
+
+                        Task taskA = Task.Run(() => feed = FeedManager.CreateFeed(txtURL.Text, category, new UpdateFrequency(time)));
+                        await taskA;
+
+                        if (Validator.IsNotNull(feed))
+                        {
+                            _FeedGroup.Add(feed);
+                            ListViewItem item = new ListViewItem(new[] {
                             feed.NumberOfEpisodes.ToString(),
                             feed.Name,
                             feed.Frequency.Minutes.ToString(),
                             feed.Category.Name });
-                        lvPodcasts.Items.Add(item);
-                        FrequencyTimer.Start(feed);
-                        UpdateFeedListView();
+                            lvPodcasts.Items.Add(item);
+                            FrequencyTimer.Start(feed);
+                            UpdateFeedListView();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ogiltig URL");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Ogiltig URL");
+                        MessageBox.Show("Fyll i alla fälten korrekt");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Fyll i alla fälten korrekt");
+                    MessageBox.Show("Feeden finns redan");
                 }
             }
+
             else
             {
-                MessageBox.Show("Feeden finns redan");
+                MessageBox.Show(message);
             }
         }
 

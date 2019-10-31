@@ -26,7 +26,7 @@ namespace BLL.Services
             }
             catch (Exception e)
             {
-                //Debug.WriteLine(e.StackTrace);
+                Debug.WriteLine(e.StackTrace);
             }
             return null;
         }

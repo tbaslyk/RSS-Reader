@@ -31,5 +31,10 @@ namespace BLL.Models
         {
 
         }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

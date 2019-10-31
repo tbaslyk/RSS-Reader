@@ -99,7 +99,7 @@ namespace PL
             foreach (Category category in _CategoryGroup.GetSortedCategories())
             {
                 lvCats.Items.Add(category.Name);
-                cmbCat.Items.Add(category.Name);
+                cmbCat.Items.Add(category);
             }
 
             if (_CategoryGroup.GetAll().Any())
@@ -142,20 +142,14 @@ namespace PL
         private async void btnAddPodcast_Click(object sender, EventArgs e)
         {
             string message = "";
+
             if (Validator.tryParseComboBoxValue(cmbFreq, out message))
             {
-
-
                 if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
                 {
-                    string selectedCategory = (string)cmbCat.SelectedItem;
-
                     if (Validator.AllFieldsFilled(txtURL.Text, cmbCat))
                     {
-                        var category = _CategoryGroup.GetAll().
-                            Where((c) => c.Name.Equals(selectedCategory)).
-                            First();
-
+                        Category category = (Category) cmbCat.SelectedItem;
                         var time = int.Parse(cmbFreq.SelectedItem.ToString());
 
                         Feed feed = null;
@@ -190,7 +184,6 @@ namespace PL
                     MessageBox.Show("Feeden finns redan");
                 }
             }
-
             else
             {
                 MessageBox.Show(message);
@@ -293,6 +286,7 @@ namespace PL
                 UpdateFeedListView();
                 btnEditCat.Enabled = false;
                 btnRemoveCat.Enabled = false;
+                txtCatName.Clear();
             }
             else
             {
@@ -372,17 +366,13 @@ namespace PL
 
                     _FeedGroup.Remove(feedToChange);
 
-                    Category selectedCategory = _CategoryGroup.GetAll().
-                        Where((c) => c.Name.Equals((string)cmbCat.SelectedItem)).
-                        First();
-
+                    Category selectedCategory = (Category) cmbCat.SelectedItem;
                     var time = int.Parse(cmbFreq.SelectedItem.ToString());
 
                     Feed newFeed = null;
 
                     Task taskA = Task.Run(() => newFeed = FeedManager.CreateFeed(txtURL.Text, selectedCategory, new UpdateFrequency(time)));
                     await taskA;
-
 
                     _FeedGroup.Add(newFeed);
 
@@ -393,6 +383,10 @@ namespace PL
                 {
                     MessageBox.Show("Fyll i alla fälten korrekt");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Markera först en feed i listan för att ändra den");
             }
         }
 

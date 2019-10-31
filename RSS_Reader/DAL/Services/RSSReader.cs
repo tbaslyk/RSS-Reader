@@ -15,7 +15,7 @@ namespace BLL.Services
     {
         public static SyndicationFeed Reader(string url)
         {
-            SyndicationFeed feed = null;
+            SyndicationFeed feed;
 
             try
             {

@@ -55,7 +55,6 @@
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\FeedGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\RSSReader.cs" />
     <Compile Include="Services\FrequencyTimer.cs" />
     <Compile Include="Validation\Validator.cs" />
   </ItemGroup>

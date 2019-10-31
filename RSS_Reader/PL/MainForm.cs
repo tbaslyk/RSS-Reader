@@ -98,7 +98,13 @@ namespace PL
 
             foreach (Category category in _CategoryGroup.GetSortedCategories())
             {
-                lvCats.Items.Add(category.Name);
+                ListViewItem item = new ListViewItem(new[]
+                {
+                    category.Name })
+                {
+                    Tag = category
+                };
+                lvCats.Items.Add(item);
                 cmbCat.Items.Add(category);
             }
 
@@ -114,7 +120,13 @@ namespace PL
 
             foreach (Feed feed in _FeedGroup.GetSortedFeeds())
             {
-                ListViewItem item = new ListViewItem(new[] { feed.NumberOfEpisodes.ToString(), feed.Name, feed.Frequency.Minutes.ToString(), feed.Category.Name });
+                ListViewItem item = new ListViewItem(new[] {
+                    feed.NumberOfEpisodes.ToString(),
+                    feed.Name, feed.Frequency.Minutes.ToString(),
+                    feed.Category.Name })
+                {
+                    Tag = feed
+                };
                 lvPodcasts.Items.Add(item);
             }
         }
@@ -141,15 +153,13 @@ namespace PL
 
         private async void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            string message = "";
-
-            if (Validator.tryParseComboBoxValue(cmbFreq, out message))
+            if (Validator.tryParseComboBoxValue(cmbFreq, out string message))
             {
                 if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
                 {
                     if (Validator.AllFieldsFilled(txtURL.Text, cmbCat))
                     {
-                        Category category = (Category) cmbCat.SelectedItem;
+                        Category category = (Category)cmbCat.SelectedItem;
                         var time = int.Parse(cmbFreq.SelectedItem.ToString());
 
                         Feed feed = null;
@@ -164,7 +174,10 @@ namespace PL
                             feed.NumberOfEpisodes.ToString(),
                             feed.Name,
                             feed.Frequency.Minutes.ToString(),
-                            feed.Category.Name });
+                            feed.Category.Name })
+                            {
+                                Tag = feed
+                            };
                             lvPodcasts.Items.Add(item);
                             FrequencyTimer.Start(feed);
                             UpdateFeedListView();
@@ -194,12 +207,9 @@ namespace PL
         {
             ClearEpisodes();
 
-            Feed selectedFeed = _FeedGroup.GetSortedFeeds().
-                Where((f) => f.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text)).
-                First();
-
+            Feed selectedFeed = (Feed) lvPodcasts.SelectedItems[0].Tag;
             txtURL.Text = selectedFeed.Url;
-            cmbCat.SelectedItem = selectedFeed.Category.Name;
+            cmbCat.SelectedItem = selectedFeed.Category;
 
             foreach (Episode episode in selectedFeed.GetEpisodesByNew())
             {
@@ -214,10 +224,7 @@ namespace PL
         {
             if (Validator.IsListViewItemSelected(lvPodcasts))
             {
-                Feed selectedFeed = _FeedGroup.GetSortedFeeds().
-                    Where((f) => f.Name.Equals(lvPodcasts.SelectedItems[0].SubItems[1].Text)).
-                    First();
-
+                Feed selectedFeed = (Feed)lvPodcasts.SelectedItems[0].Tag;
                 Episode selectedEpisode = selectedFeed.Episodes.
                     Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
                     First();
@@ -252,6 +259,10 @@ namespace PL
                 lvPodcasts.SelectedItems[0].Remove();
                 ClearEpisodes();
             }
+            else
+            {
+                MessageBox.Show("Markera först en feed i listan för att ta bort den");
+            }
         }
 
         private void btnRemoveCat_Click(object sender, EventArgs e)
@@ -270,18 +281,22 @@ namespace PL
                     }
                     else
                     {
-                        MessageBox.Show("Det går inte att ta bort en kategori som används");
+                        MessageBox.Show("Det går inte att ta bort en kategori som används av befinitliga feeds");
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Markera först en kategori i listan för att ta bort den");
             }
         }
 
         private void lvCats_Click(object sender, MouseEventArgs e)
         {
-            string category = lvCats.SelectedItems[0].Text;
+            string categoryText = lvCats.SelectedItems[0].Text;
             ClearEpisodes();
 
-            if (category.Equals("Alla"))
+            if (categoryText.Equals("Alla"))
             {
                 UpdateFeedListView();
                 btnEditCat.Enabled = false;
@@ -292,10 +307,10 @@ namespace PL
             {
                 btnEditCat.Enabled = true;
                 btnRemoveCat.Enabled = true;
-                txtCatName.Text = category;
+                txtCatName.Text = categoryText;
 
                 List<Feed> sortedFeeds = _FeedGroup.GetSortedFeeds().
-                    Where((f) => f.Category.Name.Equals(category)).
+                    Where((f) => f.Category.Name.Equals(categoryText)).
                     ToList();
 
                 lvPodcasts.Items.Clear();
@@ -306,7 +321,10 @@ namespace PL
                         feed.NumberOfEpisodes.ToString(),
                         feed.Name,
                         feed.Frequency.Minutes.ToString(),
-                        feed.Category.Name });
+                        feed.Category.Name })
+                    {
+                        Tag = feed
+                    };
                     lvPodcasts.Items.Add(item);
                 }
             }
@@ -320,17 +338,12 @@ namespace PL
                 {
                     if (Validator.CheckIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
                     {
-                        var selectedCategory = lvCats.SelectedItems[0].Text;
-
-                        Category categoryToReplace = _CategoryGroup.GetAll().
-                        Where((c) => c.Name.Equals(selectedCategory)).
-                        First();
-
+                        Category categoryToReplace = (Category) lvCats.SelectedItems[0].Tag;
                         categoryToReplace.Name = txtCatName.Text;
                         UpdateCategoryListView();
 
                         List<Category> categoriesToReplace = _FeedGroup.GetSortedFeeds().
-                            Where((f) => f.Category.Name.Equals(selectedCategory)).
+                            Where((f) => f.Category.Name.Equals(categoryToReplace.Name)).
                             Select((f) => f.Category).
                             ToList();
 
@@ -342,13 +355,17 @@ namespace PL
                     }
                     else
                     {
-                        MessageBox.Show("Kategorin finns redan tillagd");
+                        MessageBox.Show("En kategori med samma namn finns redan");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Kategorinamnet får inte vara tomt");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Markera först en kategori i listan för att redigera den");
             }
         }
 
@@ -358,12 +375,7 @@ namespace PL
             {
                 if (Validator.IsAlla(txtURL.Text))
                 {
-                    var selectedFeedName = lvPodcasts.SelectedItems[0].SubItems[1].Text;
-
-                    Feed feedToChange = _FeedGroup.GetAll().
-                        Where((f) => f.Name.Equals(selectedFeedName)).
-                        First();
-
+                    Feed feedToChange = (Feed) lvPodcasts.SelectedItems[0].Tag;
                     _FeedGroup.Remove(feedToChange);
 
                     Category selectedCategory = (Category) cmbCat.SelectedItem;

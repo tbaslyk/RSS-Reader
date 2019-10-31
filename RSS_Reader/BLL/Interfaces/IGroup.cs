@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
-    public interface IGroup<T>
+    public interface IGroup<T> where T: IEntity
     {
         void Add(T obj);
 

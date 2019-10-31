@@ -153,7 +153,7 @@ namespace PL
 
         private async void btnAddPodcast_Click(object sender, EventArgs e)
         {
-            if (Validator.tryParseComboBoxValue(cmbFreq, out string message))
+            if (Validator.TryParseComboBoxValue(cmbFreq, out string message))
             {
                 if (Validator.CheckIfFeedExists(txtURL.Text, _FeedGroup.GetAll()))
                 {
@@ -207,7 +207,7 @@ namespace PL
         {
             ClearEpisodes();
 
-            Feed selectedFeed = (Feed) lvPodcasts.SelectedItems[0].Tag;
+            Feed selectedFeed = (Feed)lvPodcasts.SelectedItems[0].Tag;
             txtURL.Text = selectedFeed.Url;
             cmbCat.SelectedItem = selectedFeed.Category;
 
@@ -255,7 +255,7 @@ namespace PL
         {
             if (Validator.IsListViewItemSelected(lvPodcasts))
             {
-                _FeedGroup.Remove(lvPodcasts.SelectedItems[0].SubItems[1].Text);
+                _FeedGroup.Remove((Feed)lvPodcasts.SelectedItems[0].Tag);
                 lvPodcasts.SelectedItems[0].Remove();
                 ClearEpisodes();
             }
@@ -271,18 +271,15 @@ namespace PL
             {
                 string text = lvCats.SelectedItems[0].Text;
 
-                if (Validator.IsAlla(text))
+                if (Validator.AllowedToDeleteCategory(text, _FeedGroup.GetAll()))
                 {
-                    if (Validator.AllowedToDeleteCategory(text, _FeedGroup.GetAll()))
-                    {
-                        _CategoryGroup.Remove(text);
-                        lvCats.SelectedItems[0].Remove();
-                        cmbCat.Items.Remove(text);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Det går inte att ta bort en kategori som används av befinitliga feeds");
-                    }
+                    _CategoryGroup.Remove(text);
+                    lvCats.SelectedItems[0].Remove();
+                    cmbCat.Items.Remove(text);
+                }
+                else
+                {
+                    MessageBox.Show("Det går inte att ta bort en kategori som används av befinitliga feeds");
                 }
             }
             else
@@ -338,7 +335,7 @@ namespace PL
                 {
                     if (Validator.CheckIfCategoryExists(txtCatName.Text, _CategoryGroup.GetAll()))
                     {
-                        Category categoryToReplace = (Category) lvCats.SelectedItems[0].Tag;
+                        Category categoryToReplace = (Category)lvCats.SelectedItems[0].Tag;
                         categoryToReplace.Name = txtCatName.Text;
                         UpdateCategoryListView();
 
@@ -375,10 +372,10 @@ namespace PL
             {
                 if (Validator.IsAlla(txtURL.Text))
                 {
-                    Feed feedToChange = (Feed) lvPodcasts.SelectedItems[0].Tag;
+                    Feed feedToChange = (Feed)lvPodcasts.SelectedItems[0].Tag;
                     _FeedGroup.Remove(feedToChange);
 
-                    Category selectedCategory = (Category) cmbCat.SelectedItem;
+                    Category selectedCategory = (Category)cmbCat.SelectedItem;
                     var time = int.Parse(cmbFreq.SelectedItem.ToString());
 
                     Feed newFeed = null;

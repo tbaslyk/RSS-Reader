@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class Category : Entity
+    public class Category : Entity, IEntity
     {
         private string name;
         public override string Name {

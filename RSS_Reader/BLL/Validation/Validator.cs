@@ -12,7 +12,7 @@ namespace BLL.Validation
     public static class Validator
     {
 
-        public static bool tryParseComboBoxValue(ComboBox box, out string message)
+        public static bool TryParseComboBoxValue(ComboBox box, out string message)
         {
             message = "";
             bool wentThrough = true;

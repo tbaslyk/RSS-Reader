@@ -64,7 +64,6 @@ namespace BLL.Services
                 List<Episode> episodes = GetEpisodes(url);
                 return new Feed(name, number, episodes, category, url, frequency);
             }
-
             return null;
         }
     }

@@ -15,22 +15,18 @@ namespace BLL.Validation
         public static bool TryParseComboBoxValue(ComboBox box, out string message)
         {
             message = "";
-            bool wentThrough = true;
             try
             {
                var parsed = int.Parse(box.SelectedItem.ToString());
             }
             catch (FormatException e)
             {
-
                 message = e.Message;
-                wentThrough = false;
+                return false;
             }
-
-            return wentThrough;
-            
-
+            return true;
         }
+
         public static bool CheckIfFeedExists(string url, List<Feed> feeds)
         {
             foreach (var item in feeds)

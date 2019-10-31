@@ -269,13 +269,13 @@ namespace PL
         {
             if (Validator.IsListViewItemSelected(lvCats))
             {
-                string text = lvCats.SelectedItems[0].Text;
+                Category selectedCategory = (Category) lvCats.SelectedItems[0].Tag;
 
-                if (Validator.AllowedToDeleteCategory(text, _FeedGroup.GetAll()))
+                if (Validator.AllowedToDeleteCategory(selectedCategory.Name, _FeedGroup.GetAll()))
                 {
-                    _CategoryGroup.Remove(text);
+                    _CategoryGroup.Remove(selectedCategory.Name);
                     lvCats.SelectedItems[0].Remove();
-                    cmbCat.Items.Remove(text);
+                    cmbCat.Items.Remove(selectedCategory);
                 }
                 else
                 {

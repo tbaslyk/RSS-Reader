@@ -408,10 +408,5 @@ namespace PL
             CategoryManager.SaveCategories(_CategoryGroup.GetAll());
         }
         #endregion
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

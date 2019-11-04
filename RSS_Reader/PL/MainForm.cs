@@ -134,8 +134,7 @@ namespace PL
         private void ClearEpisodes()
         {
             lvEpisodes.Items.Clear();
-            lblTitle.Text = "";
-            lblDesc.Text = "";
+            wbDescription.Navigate("about:blank");
         }
         #endregion
 
@@ -180,6 +179,7 @@ namespace PL
                             };
                             lvPodcasts.Items.Add(item);
                             FrequencyTimer.Start(feed);
+                            txtURL.Clear();
                             UpdateFeedListView();
                         }
                         else
@@ -229,8 +229,9 @@ namespace PL
                     Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
                     First();
 
-                lblTitle.Text = selectedEpisode.Name;
-                lblDesc.Text = selectedEpisode.Description;
+                wbDescription.Document.OpenNew(true);
+                wbDescription.Document.Write("<b>" + selectedEpisode.Name + "</b>");
+                wbDescription.Document.Write("<br>" + selectedEpisode.Description);
             }
         }
 
@@ -242,6 +243,7 @@ namespace PL
                 {
                     Category newCategory = new Category(txtCatName.Text);
                     _CategoryGroup.Add(newCategory);
+                    txtCatName.Clear();
                     UpdateCategoryListView();
                 }
                 else
@@ -276,6 +278,7 @@ namespace PL
                     _CategoryGroup.Remove(selectedCategory.Name);
                     lvCats.SelectedItems[0].Remove();
                     cmbCat.Items.Remove(selectedCategory);
+                    txtCatName.Clear();
                 }
                 else
                 {
@@ -405,5 +408,10 @@ namespace PL
             CategoryManager.SaveCategories(_CategoryGroup.GetAll());
         }
         #endregion
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

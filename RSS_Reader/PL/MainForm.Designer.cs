@@ -44,8 +44,6 @@
             this.btnEditCat = new System.Windows.Forms.Button();
             this.btnCreateCat = new System.Windows.Forms.Button();
             this.txtCatName = new System.Windows.Forms.TextBox();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblDesc = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -53,6 +51,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.wbDescription = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // btnAddPodcast
@@ -68,6 +67,7 @@
             // 
             // lvPodcasts
             // 
+            this.lvPodcasts.BackColor = System.Drawing.SystemColors.Window;
             this.lvPodcasts.HideSelection = false;
             this.lvPodcasts.Location = new System.Drawing.Point(9, 121);
             this.lvPodcasts.Margin = new System.Windows.Forms.Padding(2);
@@ -102,6 +102,7 @@
             // 
             // txtURL
             // 
+            this.txtURL.BackColor = System.Drawing.SystemColors.Window;
             this.txtURL.Location = new System.Drawing.Point(9, 72);
             this.txtURL.Margin = new System.Windows.Forms.Padding(2);
             this.txtURL.Name = "txtURL";
@@ -110,6 +111,7 @@
             // 
             // cmbCat
             // 
+            this.cmbCat.BackColor = System.Drawing.SystemColors.Window;
             this.cmbCat.FormattingEnabled = true;
             this.cmbCat.Location = new System.Drawing.Point(268, 71);
             this.cmbCat.Margin = new System.Windows.Forms.Padding(2);
@@ -119,6 +121,7 @@
             // 
             // cmbFreq
             // 
+            this.cmbFreq.BackColor = System.Drawing.SystemColors.Window;
             this.cmbFreq.FormattingEnabled = true;
             this.cmbFreq.Location = new System.Drawing.Point(174, 71);
             this.cmbFreq.Margin = new System.Windows.Forms.Padding(2);
@@ -128,6 +131,7 @@
             // 
             // lvEpisodes
             // 
+            this.lvEpisodes.BackColor = System.Drawing.SystemColors.Window;
             this.lvEpisodes.HideSelection = false;
             this.lvEpisodes.Location = new System.Drawing.Point(9, 316);
             this.lvEpisodes.Margin = new System.Windows.Forms.Padding(2);
@@ -158,6 +162,7 @@
             // 
             // lvCats
             // 
+            this.lvCats.BackColor = System.Drawing.SystemColors.Window;
             this.lvCats.HideSelection = false;
             this.lvCats.Location = new System.Drawing.Point(383, 121);
             this.lvCats.Margin = new System.Windows.Forms.Padding(2);
@@ -203,30 +208,12 @@
             // 
             // txtCatName
             // 
+            this.txtCatName.BackColor = System.Drawing.SystemColors.Window;
             this.txtCatName.Location = new System.Drawing.Point(383, 72);
             this.txtCatName.Margin = new System.Windows.Forms.Padding(2);
             this.txtCatName.Name = "txtCatName";
             this.txtCatName.Size = new System.Drawing.Size(284, 20);
             this.txtCatName.TabIndex = 14;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(380, 251);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTitle.MaximumSize = new System.Drawing.Size(287, 40);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(0, 13);
-            this.lblTitle.TabIndex = 15;
-            // 
-            // lblDesc
-            // 
-            this.lblDesc.Location = new System.Drawing.Point(380, 286);
-            this.lblDesc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(287, 130);
-            this.lblDesc.TabIndex = 16;
             // 
             // label5
             // 
@@ -291,11 +278,21 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Avsnitt";
             // 
+            // wbDescription
+            // 
+            this.wbDescription.Location = new System.Drawing.Point(383, 253);
+            this.wbDescription.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbDescription.Name = "wbDescription";
+            this.wbDescription.Size = new System.Drawing.Size(284, 178);
+            this.wbDescription.TabIndex = 24;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(690, 456);
+            this.Controls.Add(this.wbDescription);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -303,8 +300,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.lblDesc);
-            this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.txtCatName);
             this.Controls.Add(this.btnCreateCat);
             this.Controls.Add(this.btnEditCat);
@@ -320,12 +315,15 @@
             this.Controls.Add(this.btnEditPodcast);
             this.Controls.Add(this.lvPodcasts);
             this.Controls.Add(this.btnAddPodcast);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RSS Reader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,8 +346,6 @@
         private System.Windows.Forms.Button btnEditCat;
         private System.Windows.Forms.Button btnCreateCat;
         private System.Windows.Forms.TextBox txtCatName;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblDesc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
@@ -357,6 +353,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.WebBrowser wbDescription;
     }
 }
 

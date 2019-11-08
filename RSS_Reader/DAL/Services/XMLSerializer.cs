@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace DAL
 {
-    public class Serializer
+    public class XMLSerializer
     {
         public static void Serialize<T>(T data, string path)
         {

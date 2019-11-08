@@ -7,26 +7,12 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class Category : Entity, IEntity
+    public class Category : Entity
     {
-        private string name;
-        public override string Name {
-            get {
-
-                return name;
-            } 
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    name = value;
-                }
-            }
-        }
-        public Category(string name)
+        public Category(string name) : base(name)
         {
-            Name = name;
         }
+
         public Category()
         {
 
@@ -34,7 +20,7 @@ namespace BLL.Models
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
     }
 }

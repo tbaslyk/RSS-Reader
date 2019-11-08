@@ -13,13 +13,12 @@ namespace BLL.Services
 
         public static void SaveCategories(List<Category> categories)
         {
-            Serializer.Serialize<List<Category>>(categories, Environment.CurrentDirectory + "\\categories.xml");
+            XMLSerializer.Serialize(categories, Environment.CurrentDirectory + "\\categories.xml");
         }
 
         public static List<Category> LoadCategories()
         {
-            return Serializer.Deserialize<List<Category>>(Environment.CurrentDirectory + "\\categories.xml");
+            return XMLSerializer.Deserialize<List<Category>>(Environment.CurrentDirectory + "\\categories.xml");
         }
-
     }
 }

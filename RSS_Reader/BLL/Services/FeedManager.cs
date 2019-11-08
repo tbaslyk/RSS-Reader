@@ -15,12 +15,12 @@ namespace BLL.Services
     {
         public static List<Feed> LoadFeeds()
         {
-            return Serializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
+            return XMLSerializer.Deserialize<List<Feed>>(Environment.CurrentDirectory + "\\feeds.xml");
         }
 
         public static void SaveFeeds(List<Feed> feeds)
         {
-            Serializer.Serialize<List<Feed>>(feeds, Environment.CurrentDirectory + "\\feeds.xml");
+            XMLSerializer.Serialize(feeds, Environment.CurrentDirectory + "\\feeds.xml");
         }
 
         private static string GetTitle(string url)

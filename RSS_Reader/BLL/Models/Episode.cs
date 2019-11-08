@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class Episode : IEntity
+    public class Episode : Entity
     {
         public int EpisodeNumber { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
 
-
-        public Episode(int episodeNumber, string name, string description)
+        public Episode(int episodeNumber, string name, string description) : base(name)
         {
             EpisodeNumber = episodeNumber;
-            Name = name;
             Description = description;
 
         }

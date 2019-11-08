@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public class Feed : IEntity
+    public class Feed : Entity
     {
-        public string Name { get; set; }
         public int NumberOfEpisodes { get; set; }
         public List<Episode> Episodes { get; set; }
         public Category Category { get; set; }
         public string Url { get; set; }
         public UpdateFrequency Frequency { get; set; }
 
-        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url, UpdateFrequency updatef)
+        public Feed(string podcastName, int numberOfEpisodes, List<Episode> episodes, Category category, string url, UpdateFrequency updatef) : base(podcastName)
         {
-            Name = podcastName;
             NumberOfEpisodes = numberOfEpisodes;
             Episodes = episodes;
             Category = category;

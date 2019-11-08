@@ -45,9 +45,10 @@ namespace PL
             lvEpisodes.FullRowSelect = true;
             lvEpisodes.MultiSelect = false;
 
-            lvCats.Columns.Add("Namn");
+            lvCats.Columns.Add("Namn", -2);
             lvCats.View = View.Details;
             lvCats.MultiSelect = false;
+            lvCats.FullRowSelect = true;
         }
 
         private void LoadAllFeeds()
@@ -228,10 +229,9 @@ namespace PL
                 Episode selectedEpisode = selectedFeed.Episodes.
                     Where((ep) => ep.EpisodeNumber.ToString().Equals(lvEpisodes.SelectedItems[0].Text)).
                     First();
-
                 wbDescription.Document.OpenNew(true);
                 wbDescription.Document.Write("<b>" + selectedEpisode.Name + "</b>");
-                wbDescription.Document.Write("<br>" + selectedEpisode.Description);
+                wbDescription.Document.Write("<br />" + selectedEpisode.Description);
             }
         }
 
